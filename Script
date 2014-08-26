@@ -278,7 +278,7 @@
     }
     
     function keydown(event) {
-        if (event.keyCode == '37' || event.keyCode == '39') {
+        if (event.keyCode == '37' || event.keyCode == '39' || event.keyCode == '65' || event.keyCode == '68') {
             update();
         }else if (event.keyCode == '32') {
             
