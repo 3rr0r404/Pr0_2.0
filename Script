@@ -3,7 +3,7 @@
 // @namespace   
 // @description Improve das Pr0gramm 2.0 Wörk Wörk
 // @include     http://pr0gramm.com/*
-// @version     2.2
+// @version     2.2.1
 // @grant       none
 // @require             http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // ==/UserScript==
@@ -15,6 +15,10 @@
     	spacepressed = false,
      	wheelLast = 0,
     	design = '1';
+    
+    //Headerbar recoloring
+    $('#head-content').css( 'background-color', '#161618' );
+    
     /****/// CSS und Kommentarbox links
     
     
@@ -227,7 +231,9 @@
         $(".item-container").css( 'width', monitorWidth+'px' );
         $(".item-image").css( 'max-height', '100%' );
         //Formel um dynamisch den Container zu verschieben um den ganzen Bildschirm nutzen zu können
+        if (monitorWidth>1100) {
         $(".item-container").css( 'left', (((monitorWidth-1100)/(520/265))*(-1))+'px'); 
+        }
         $("#stream-prev").css( 'visibility', 'hidden' );
         $("#stream-next").css( 'visibility', 'hidden' );
         $(".item-pointer").css( 'visibility', 'hidden' );
@@ -273,8 +279,14 @@
                 alert('Der Zoom funktioniert erst ab einer Bildschirmbreite von 1050 Pixeln!');
             } else {
                 
-                //-300 für die Kommentarbox
-                monitorWidth = $(window).width() - 300;
+                //Breite für die Kommentarbox abziehen
+                //Kommentarbox ist maximal 300px breit!
+                monitorWidth = $(window).width();
+                if(monitorWidth < 1250) {
+                    monitorWidth = monitorWidth - (monitorWidth*0.26);
+                } else {
+                   monitorWidth = monitorWidth -300; 
+                }
                 //-180 für die Leiste oben und die Tags
                 monitorHeight = $(window).height() - 180;
                 var pictureWidth = $('.item-image').width(),
