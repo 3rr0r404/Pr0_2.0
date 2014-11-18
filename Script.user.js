@@ -4,7 +4,7 @@
 // @author		Error404
 // @description Improve das Pr0gramm 2.0 Wörk Wörk
 // @include     http://pr0gramm.com/*
-// @version     2.3.3
+// @version     2.3.4
 // @grant       none
 // @require     http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
