@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name        Pr0gramm.com by Seglor/Error404 hat Verbesserungsauftrag
-// @namespace   
+// @name        Pr0gramm.com by Error404 hat Verbesserungsauftrag
+// @namespace   https://github.com/3rr0r404/Pr0_2.0
+// @author		Error404
 // @description Improve das Pr0gramm 2.0 Wörk Wörk
 // @include     http://pr0gramm.com/*
-// @version     2.3.1
+// @version     2.3.2
 // @grant       none
-// @require             http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
+// @require     http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
+// @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.js
 // ==/UserScript==
 
 (function() {
@@ -15,7 +17,8 @@
     	spacepressed = false,
      	wheelLast = 0,
         offset = 0,
-    	design = '1';
+    	design = '1',
+        commentboxwidth = 300;
     
     //Headerbar recoloring
     $('#head-content').css( 'background-color', '#161618' );
@@ -29,6 +32,7 @@
         '.ui-widget-content {border: 1px solid #AAAAAA;color: #222222;}'+
         '.ui-slider { position: relative; text-align: left;}'+
         '.ui-slider-horizontal { height: 0.8em;}'+
+        'div.item-comments { max-width: 300px;}'+
         '.ui-corner-all {  border-radius: 4px;}'+
         '.ui-slider-horizontal .ui-slider-range { height: 100%; top: 0;}'+
         '.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {'+
@@ -141,6 +145,14 @@
         $(".item-container").css( 'width', monitorWidth+'px' );
         $(".item-image").css( 'max-height', '100%' );
         //Formel um dynamisch den Container zu verschieben um den ganzen Bildschirm nutzen zu können
+        
+   //     commentboxwidth = $('.item-comments').width();
+        
+   //     console.log(commentboxwidth);
+   //     console.log( $('.item-container').offset().left);
+       
+   //     $(".item-container").css( 'left', ($('.item-container').offset().left-commentboxwidth)*(-1)+'px'); 
+        
         if (monitorWidth>1100) {
         $(".item-container").css( 'left', (((monitorWidth-1100)/(520/265))*(-1))+'px'); 
         }
@@ -184,8 +196,8 @@
         if (!spacepressed && $("div.item-container").length) {
             
             // Prüfen ob eine ausreichende Bildschirmbreite vorhanden ist
-            if ($(window).width() < 1050) {
-                alert('Der Zoom funktioniert erst ab einer Bildschirmbreite von 1050 Pixeln!');
+            if ($(window).width() < 1060) {
+          //      alert('Der Zoom funktioniert erst ab einer Bildschirmbreite von 1050 Pixeln!');
             } else {
                 
                 //Breite für die Kommentarbox abziehen
@@ -196,7 +208,7 @@
                 } else {
                    monitorWidth = monitorWidth -300; 
                 }
-                //-180 für die Leiste oben und die Tags
+                //-180 für die Leiste oben und die Tags unten
                 monitorHeight = $(window).height() - 180;
                 var pictureWidth = $('.item-image').width(),
                     pictureHeight = $('.item-image').height();
@@ -219,8 +231,6 @@
     }
     
     function keydown(event) {
-        event.preventDefault();
-        event.stopPropagation();
         if (event.keyCode == '37' || event.keyCode == '39' || event.keyCode == '65' || event.keyCode == '68') {
             update();
         }else if (event.keyCode == '32') {
