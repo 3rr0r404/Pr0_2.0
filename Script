@@ -3,7 +3,7 @@
 // @namespace   
 // @description Improve das Pr0gramm 2.0 Wörk Wörk
 // @include     http://pr0gramm.com/*
-// @version     2.3
+// @version     2.3.1
 // @grant       none
 // @require             http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // ==/UserScript==
@@ -77,7 +77,11 @@
             positionX += pageElement.offsetLeft;        
             positionY += pageElement.offsetTop;
             //alert($(window).height());           
+            if (spacepressed){
+                window.scrollTo(positionX, positionY);
+            } else {
             window.scrollTo(positionX, positionY-130);
+            }
         }
     }
     
@@ -107,6 +111,7 @@
             positionX += pageElement.offsetLeft;        
             positionY += pageElement.offsetTop;
             //alert($(window).height());  
+            //falls zoomed soll keine bildreihe am oberen rand gezeigt werden
             if (spacepressed){
                 window.scrollTo(positionX, positionY);
             } else {
@@ -124,109 +129,7 @@
     });
     $('#stream-prev').click(function() {
         update();
-    });
-    
-    
-    // Breiteneinstellung in Settings
-    
-    function refreshdas() {
-        if (design == '1') {
-            var weite = $("#slider").slider("value");
-            $("#page").css( "width", weite+"px");
-            $("#head").css( "width", weite+"px");
-            var proreihe = weite/128;
-            var treshold = 0.55* $(window).width();
-            
-            document.getElementById("zahlbreite").innerHTML = weite+' Pixel';
-            if (weite > treshold) {
-                $(".item-comments").css( "top", "50px");
-            }else{
-                $(".item-comments").css( "top", "0");
-            }
-        }
-    }
-    
-    function changedesign() {
-        if (document.getElementById("design") && design == '1') {
-            var elem = document.getElementById('design');
-            elem.parentNode.removeChild(elem);
-        }else{
-            
-            var css = '#page { width: 100% !important }'+
-                '#head { width: 100% !important }'+
-                '.comment-foot { width: 260px !important }'+
-                '.item-comments { top: 48px !important; width: 312px !important;}' +
-                '.item-container-content { margin-top: 20px !important }'+
-                'div.item-container { background: rgba(0, 0, 0, 0.9) !important; position: absolute !important; height: 100% !important; width: 100% !important; }'+
-                '.stream-row { clear: none !important; margin-left: 0 !important; }'+
-                '#main-view { max-width: 100% !important; width: 100% !important; }'+
-                '.user-info { margin: 20px 30px 0 0 !important; }'+
-                '#pr0gramm-logo { margin-left: 15px !important; }'+
-                '.item-pointer { display: none !important; }'+
-                'div.item-tags { padding: 4px 0 8px 20% !important;}'+
-                'div.item-vote { left: 345px;)';
-            if (!document.getElementById("design") && design == '2') {
-                var node = document.createElement("style");
-                node.type = "text/css";
-                node.id = "design";
-                node.appendChild(document.createTextNode(css));
-                var heads = document.getElementsByTagName("head");
-                if (heads.length > 0) {
-                    heads[0].appendChild(node);
-                } else {
-                    document.documentElement.appendChild(node);
-                }
-            }
-        }
-    }
-    
-    
-    // Settings öffnen
-    $('#settings-link').click(function() {
-        setInterval(function () {
-            
-            if ($("div.overlay-tabs").length && !$("#settings-optik").length) {
-                $('div.overlay-tabs').append('<span id="settings-optik" class="link tab">Optik</span>');               
-            }
-            var valus = parseInt(document.getElementById("page").style.width);
-            $( "#slider" ).slider( "value", valus );
-            $('span#settings-optik').click(function() {
-                loaded = false;
-                $('#settings-optik').attr('class', 'link tab active');
-                $('div.overlay-content:eq(1)').attr('id', 'cont');
-                
-                document.getElementById("cont").innerHTML = '<div id="slider"></div><span id="zahlbreite" style="color:#fff;">788</span>'+
-                    '<div style="margin: 50px;"><br><br>Design wechseln: <input type="button" id="buttons1" value="Design 1"> <input type="button" id="buttons2" value="Design 2"></div>';
-                
-                $('#buttons1').click(function() {
-                    design = '1';
-                    changedesign();
-                    $('#slider').slider('enable');
-                    $('#slider').slider({ disabled: "false" });
-                });
-                $('#buttons2').click(function() {
-                    design = '2';
-                    changedesign();
-                    $('#slider').slider('disable');
-                    $('#slider').slider({ disabled: "true" });
-                });
-                
-                $('#slider').slider({
-                    orientation: "horizontal",
-                    range: "min",
-                    max: $(window).width(),
-                    min: 788,
-                    value: valus,
-                    slide: refreshdas,
-                    change: refreshdas
-                });
-                
-            });    
-            
-        }, 300);
-    });
-    
-    
+    });    
     
     //Immer ausführen nach Höhe/Breite-zoom
     //Hier wird anhand der aktuellen Monitorbreite der gesamte Container (Tags+Bild) angepasst
@@ -234,9 +137,6 @@
         
         $(".item-container").css( 'position', 'absolute' );
         $(".item-container").css( 'top', offset );
-        
-
-        
         $(".item-container").css( 'height', (monitorHeight+150)+'px' );
         $(".item-container").css( 'width', monitorWidth+'px' );
         $(".item-image").css( 'max-height', '100%' );
@@ -280,8 +180,7 @@
     
     // Funktion um Zoom zu initieren, wird entschieden ob hinzoomen/wegzoomen, sowie ob Breite/Höhe das Limit sind
     function zoom() {
-        
-        
+
         if (!spacepressed && $("div.item-container").length) {
             
             // Prüfen ob eine ausreichende Bildschirmbreite vorhanden ist
@@ -320,6 +219,8 @@
     }
     
     function keydown(event) {
+        event.preventDefault();
+        event.stopPropagation();
         if (event.keyCode == '37' || event.keyCode == '39' || event.keyCode == '65' || event.keyCode == '68') {
             update();
         }else if (event.keyCode == '32') {
@@ -332,9 +233,6 @@
             
             // Bild mit Space vergrößern
             if ($('.item-image').length != 0) {
-                event.preventDefault();
-                event.stopPropagation();
-                
                 zoom();
             }
         }
