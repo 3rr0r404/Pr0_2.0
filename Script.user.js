@@ -7,7 +7,7 @@
 // @version     2.3.2
 // @grant       none
 // @require     http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
-// @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.js
+// @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
 // ==/UserScript==
 
 (function() {
