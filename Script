@@ -3,7 +3,7 @@
 // @namespace   
 // @description Improve das Pr0gramm 2.0 Wörk Wörk
 // @include     http://pr0gramm.com/*
-// @version     2.2.1
+// @version     2.3
 // @grant       none
 // @require             http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // ==/UserScript==
@@ -14,6 +14,7 @@
         monitorHeight = 0,
     	spacepressed = false,
      	wheelLast = 0,
+        offset = 0,
     	design = '1';
     
     //Headerbar recoloring
@@ -105,8 +106,12 @@
             var pageElement = document.getElementById('bild');
             positionX += pageElement.offsetLeft;        
             positionY += pageElement.offsetTop;
-            //alert($(window).height());           
+            //alert($(window).height());  
+            if (spacepressed){
+                window.scrollTo(positionX, positionY);
+            } else {
             window.scrollTo(positionX, positionY-130);
+            }
         }else{
             var stil = document.getElementsByTagName('html')[0];
             stil.style.overflow='visible';
@@ -226,7 +231,12 @@
     //Immer ausführen nach Höhe/Breite-zoom
     //Hier wird anhand der aktuellen Monitorbreite der gesamte Container (Tags+Bild) angepasst
     function zoomfinally() {
+        
         $(".item-container").css( 'position', 'absolute' );
+        $(".item-container").css( 'top', offset );
+        
+
+        
         $(".item-container").css( 'height', (monitorHeight+150)+'px' );
         $(".item-container").css( 'width', monitorWidth+'px' );
         $(".item-image").css( 'max-height', '100%' );
@@ -291,6 +301,8 @@
                 monitorHeight = $(window).height() - 180;
                 var pictureWidth = $('.item-image').width(),
                     pictureHeight = $('.item-image').height();
+                
+                offset = $(".item-container").offset().top;
                 
                 //console.log('Breite:'+pictureWidth+' Höhe:'+pictureHeight);
                                 
