@@ -4,7 +4,7 @@
 // @author		Error404
 // @description Improve das Pr0gramm 2.0 Wörk Wörk
 // @include     http://pr0gramm.com/*
-// @version     2.3.4
+// @version     2.4
 // @grant       none
 // @require     http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
@@ -12,15 +12,17 @@
 
 (function() {
     
-    var monitorWidth = 0,        
-        monitorHeight = 0,
-    	spacepressed = false,
-     	wheelLast = 0,
+    var monitorWidth = $(window).width(),        
+        monitorHeight = $(window).height(),
+        itemViewportWidth,
+        itemViewportHeight,    
+        spacepressed = false,
+        wheelLast = 0,
         offset = 0,
-    	design = '1',
         commentboxwidth = 300;
     
     //Headerbar recoloring
+    $('#head').css( 'background-color', '#161618' );
     $('#head-content').css( 'background-color', '#161618' );
     
     /****/// CSS und Kommentarbox links
@@ -40,7 +42,9 @@
         '.ui-slider-horizontal .ui-slider-handle { margin-left: -0.6em; top: -0.3em;}'+
         '.ui-slider .ui-slider-handle { cursor: default; height: 1.2em; position: absolute; width: 1.2em; z-index: 2;}'+
         '#slider { float: left; clear: left; width: 300px; margin: 30px 15px 5px; }#slider .ui-slider-range { background: #EE4D2E; } #slider .ui-slider-handle { border-color: #EE4D2E; }'+
-        '@media screen and (max-width:1400px){ div#head {margin: 0 0 0 25% !important;} div#page {margin: 0 0 0 25% !important;} .item-comments {width: 24% !important;}} #head { z-index:200; } #stream-next, #stream-prev { z-index:122; } .item-image{max-height:460px;} .item-comments {\n  position: fixed !important;\n  top: 0;\n  left: 0;\n \n  width: 300px;\n  height: 100vh;\n  max-height: 100vh;\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n \n.item-comments textarea.comment {\n  resize: none;\n}\n \ndiv.comment-box > div.comment-box {\n    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);\n    padding: 0 0 0 6px;\n}';
+        '@media screen and (max-width:1400px){ div#head {margin: 0 0 0 305px !important;} div#page {margin: 0 0 0 305px !important;} .item-comments {width: 300px;} #stream-next, #stream-prev { z-index:-1 !important; }} #head { z-index:200; } #stream-next, #stream-prev { z-index:0; } .item-image{max-height:460px;} .item-comments {\n  position: fixed !important;\n  top: 0px !important;\n  left: 0;\n \n  width: 300px;\n  height: 100vh;\n overflow-y: auto;\n  overflow-x: hidden;\n}\n \n.item-comments textarea.comment {\n  resize: none;\n}\n \ndiv.comment-box > div.comment-box {\n    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);\n    padding: 0 0 0 6px;\n}'+
+        '::-webkit-scrollbar { width: 10px;} ::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); -webkit-border-radius: 7px; border-radius: 7px;}'+ 
+        '::-webkit-scrollbar-thumb { border-radius: 7px; -webkit-border-radius: 7px; background: #949494; -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); }';
     
     if (typeof GM_addStyle != "undefined") {
         GM_addStyle(css);
@@ -63,28 +67,26 @@
     function update(e) {
         
         if(spacepressed) {
-            zoomremove();
-            // spacepressed=false;
-            zoom();
+            zoom(true);
         }
         
-        // nur in Uploads
+        // nur wenn Bild offen
         if ($("div.item-container").length) {
             
             //$('.item-container').hide();
             $('.item-container').fadeIn();
             $(".item-container").attr( 'id', 'bild' );
             
-            var positionX = 0,        
-                positionY = 0;
-            var pageElement = document.getElementById('bild');
-            positionX += pageElement.offsetLeft;        
-            positionY += pageElement.offsetTop;
+            var pageElementpositionX = 0,        
+                pageElementpositionY = 0,
+                pageElement = document.getElementById('bild');
+            pageElementpositionX += pageElement.offsetLeft;        
+            pageElementpositionY += pageElement.offsetTop;
             //alert($(window).height());           
             if (spacepressed){
-                window.scrollTo(positionX, positionY);
+                window.scrollTo(pageElementpositionX, pageElementpositionY);
             } else {
-            window.scrollTo(positionX, positionY-130);
+                window.scrollTo(pageElementpositionX, pageElementpositionY-130);
             }
         }
     }
@@ -93,11 +95,13 @@
     setInterval(function() {
         
         if ($('.item-image').length) {
-            /*
-                            var vids = document.getElementsByTagName("video");
-                            for (i = 0; i < vids.length; i++) vids[i].setAttribute("controls", "true");
-                            */
-            // + bei resized Bildern
+            
+            if (document.getElementsByTagName("video").length){
+                if($('.item-image').width()==itemViewportWidth){
+                    zoom(true);
+                }
+            }
+            
             if (!$('.item-fullsize-link').length) {
                 var imgu = document.getElementsByClassName('item-image')[0];
                 if (imgu.naturalHeight > 460) {
@@ -119,13 +123,13 @@
             if (spacepressed){
                 window.scrollTo(positionX, positionY);
             } else {
-            window.scrollTo(positionX, positionY-130);
+                window.scrollTo(positionX, positionY-130);
             }
         }else{
             var stil = document.getElementsByTagName('html')[0];
             stil.style.overflow='visible';
+            zoomremove();
         }
-        
     }, 200);
     
     $('#stream-next').click(function() {
@@ -139,40 +143,34 @@
     //Hier wird anhand der aktuellen Monitorbreite der gesamte Container (Tags+Bild) angepasst
     function zoomfinally() {
         
-        $(".item-container").css( 'position', 'absolute' );
+        $(".item-container").css( 'position', 'absolute');
         $(".item-container").css( 'top', offset );
-        $(".item-container").css( 'height', (monitorHeight+150)+'px' );
-        $(".item-container").css( 'width', monitorWidth+'px' );
+        $(".item-container").css( 'height', (itemViewportHeight+150)+'px' );
+        $(".item-container").css( 'width', itemViewportWidth+'px' );
         $(".item-image").css( 'max-height', '100%' );
-        //Formel um dynamisch den Container zu verschieben um den ganzen Bildschirm nutzen zu können
-        
-   //     commentboxwidth = $('.item-comments').width();
-        
-   //     console.log(commentboxwidth);
-   //     console.log( $('.item-container').offset().left);
-       
-   //     $(".item-container").css( 'left', ($('.item-container').offset().left-commentboxwidth)*(-1)+'px'); 
-        
-        if (monitorWidth>1100) {
-        $(".item-container").css( 'left', (((monitorWidth-1100)/(520/265))*(-1))+'px'); 
-        }
+        $("div#page").css( 'margin', '0 305px');
+        $("div#head").css( 'width', itemViewportWidth+10+'px'); //+10 da spacing von viewport nicht relevant
+        $("div#head").css( 'margin', '0 0 0 300px');
+        $("div#head-content").css( 'margin', 'auto');
+        $("div#head-content").css( 'width', '788px'); 
         $("#stream-prev").css( 'visibility', 'hidden' );
         $("#stream-next").css( 'visibility', 'hidden' );
         $(".item-pointer").css( 'visibility', 'hidden' );
+        $(".video-position-bar").css( 'width', $('.item-image').width()+'px');
         
         spacepressed = true;
     }
     
     // Falls Bild mehr Höhe hat als Monitor
     function zoomH() {
-        $(".item-image").css( 'height', monitorHeight+'px' );
+        $(".item-image").css( 'height', itemViewportHeight+'px' );
         $(".item-image").css( 'width', 'auto' );
         zoomfinally();
     }
     
     // Falls Bild mehr Breite hat als Monitor
     function zoomB() {
-        $(".item-image").css( 'width', monitorWidth+'px' );
+        $(".item-image").css( 'width', itemViewportWidth+'px' );
         $(".item-image").css( 'height', 'auto' );
         zoomfinally();
     }
@@ -184,55 +182,65 @@
         $(".item-container").css( 'width', 'auto' );
         $(".item-image").css( 'max-height', '460px' );
         $(".item-image").css( 'width', 'auto' );
+        $(".item-image").css( 'height', 'auto' );
         $("#stream-prev").css( 'visibility', 'visible' );
         $("#stream-next").css( 'visibility', 'visible' );
         $(".item-pointer").css( 'visibility', 'visible' );
+        $("div#page").css( 'margin', '0 auto');
+        $("div#head").css( 'width', '788px'); 
+        $("div#head").css( 'margin', '0 auto');
+        $(".video-position-bar").css( 'width', $('.item-image').width()+'px');
+        
         spacepressed = false;
     }
     
     // Funktion um Zoom zu initieren, wird entschieden ob hinzoomen/wegzoomen, sowie ob Breite/Höhe das Limit sind
-    function zoom() {
-
-        if (!spacepressed && $("div.item-container").length) {
-            
-            // Prüfen ob eine ausreichende Bildschirmbreite vorhanden ist
-            if ($(window).width() < 1060) {
-          //      alert('Der Zoom funktioniert erst ab einer Bildschirmbreite von 1050 Pixeln!');
-            } else {
-                
-                //Breite für die Kommentarbox abziehen
-                //Kommentarbox ist maximal 300px breit!
-                monitorWidth = $(window).width();
-                if(monitorWidth < 1250) {
-                    monitorWidth = monitorWidth - (monitorWidth*0.26);
-                } else {
-                   monitorWidth = monitorWidth -300; 
-                }
-                //-180 für die Leiste oben und die Tags unten
-                monitorHeight = $(window).height() - 180;
-                var pictureWidth = $('.item-image').width(),
-                    pictureHeight = $('.item-image').height();
-                
-                offset = $(".item-container").offset().top;
-                
-                //console.log('Breite:'+pictureWidth+' Höhe:'+pictureHeight);
-                                
-                if ((monitorWidth/monitorHeight) > (pictureWidth/pictureHeight)) {
-                    zoomH();      
-                } else {
-                    zoomB();
-                }
-                
-            }
-        }else{
-            zoomremove();
-        } 
+    function zoom(resized) {
         
+        if ($("div.item-container").length) {
+            
+            if(!spacepressed || resized){
+                
+                // Prüfen ob eine ausreichende Bildschirmbreite vorhanden ist
+                if ($(window).width() < 1100) {
+                    alert('Der Zoom macht unter einer Bildschirmbreite von 1100 Pixeln keinen Sinn!');
+                } else {
+                    
+                    //Breite für die Kommentarbox und Spacing abziehen
+                    //Kommentarbox ist 300px breit, Spacing jeweils 2x5px
+                    itemViewportWidth = monitorWidth -310; 
+                    
+                    //-180 für die Leiste oben und die Tags unten
+                    itemViewportHeight = monitorHeight -180;
+                    
+                    //Daten von dem Bild abrufen
+                    var pictureWidth = $('.item-image').width(),
+                        pictureHeight = $('.item-image').height();
+                    
+                    offset = $(".item-container").offset().top;
+                    
+                    if ((itemViewportWidth/itemViewportHeight) > (pictureWidth/pictureHeight)) {
+                        zoomH();      
+                    } else {
+                        zoomB();
+                    }
+                    
+                }
+            }else{
+                zoomremove();
+            }    
+        }
     }
     
+    //Funktion welche ausgeführt wird wenn Taste gedrückt wird
     function keydown(event) {
+        
+        //Falls a,d,arrow up, arrow down gedrückt
         if (event.keyCode == '37' || event.keyCode == '39' || event.keyCode == '65' || event.keyCode == '68') {
             update();
+            return;
+            
+            // Falls Space gedrückt
         }else if (event.keyCode == '32') {
             
             // falls textarea aktiv
@@ -242,13 +250,20 @@
             }
             
             // Bild mit Space vergrößern
-            if ($('.item-image').length != 0) {
+            if ($('.item-image').length !== 0) {
+                if ($(window).width() < 1100) {
+                    alert('Der Zoom funktioniert erst ab 1100 Pixeln Bildschirmbreite!');
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
                 zoom();
+                event.preventDefault();
+                event.stopPropagation();
             }
         }
             } 
     
-    // Space Vergrößerung und links/rechts Bildwechsel
+    // Event-Listener falls eine Taste gedrückt wird
     document.addEventListener("keydown", keydown, false);
     
     function isHover(e) {
@@ -257,6 +272,7 @@
     }
     
     
+    //Funktion welche ausgeführt wird wenn Mausrad gedreht wird
     function handleWheel(event) {
         
         if ($("div.item-container").length) {
@@ -296,8 +312,7 @@
         }
     }
     
-    // Image Scroll
-    
+    // Event-Listener falls Mausrad gedreht wird
     // Firefox
     document.addEventListener("DOMMouseScroll", handleWheel, false);
     // IE9, Chrome, Safari, Opera
@@ -306,5 +321,21 @@
     if(!document.addEventListener) {
         document.attachEvent("onmousewheel", handleWheel);
     }  
+    
+    function doSomething() {
+        monitorWidth = $(window).width();      
+        monitorHeight = $(window).height();
+        if(spacepressed){
+            zoom(true);
+        }
+    }
+    
+    //Listener falls Browsergröße verändert wird
+    var resizeTimeout = false;
+    window.addEventListener("resize", function(){
+        if(resizeTimeout !== false)
+            clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(doSomething, 100);
+    });
     
 })();
