@@ -12,7 +12,7 @@ Vorteile durch das Skript:
 Zur alternativen Ansicht:
 Dabei handelt es sich um einen gezoomte Ansicht der Bilder/Webm. Dieser werden auf die maximal mögliche Größe für euren Browser skaliert. Dabei kann weiterhin mit den herkömmlichen Tasten zwischen den Bildern umgeschaltet werden. Der Zoom passt sich auch dynamisch an, falls ihr euren Webbrowser in der Größe verändert. Dies funktioniert auch, wenn ihr mittels "F11" in den Fullscreen-mode wechselt für die volle Dröhnung.
 
-Skript ist getestet unter Chrome und Firefox auf Windows 7 x64. Bis zu einer Auflösung von 1920y1080.
+Skript ist getestet unter Chrome und Firefox auf Windows 7 x64.
 Skript wird sicherlich nicht unter IE8 oder älter vollständig funktionieren.
 
 Gerne könnt ihr mir auf der Webseite unseres Vertrauens Nachrichten schicken, falls ihr:
