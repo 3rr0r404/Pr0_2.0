@@ -4,7 +4,7 @@
 // @author		Error404
 // @description Improve das Pr0gramm 2.0 Wörk Wörk
 // @include     http://pr0gramm.com/*
-// @version     2.4
+// @version     2.4.1
 // @grant       none
 // @require     http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
@@ -17,6 +17,7 @@
         itemViewportWidth,
         itemViewportHeight,    
         spacepressed = false,
+        errorDisplayed = false,
         wheelLast = 0,
         offset = 0,
         commentboxwidth = 300;
@@ -72,6 +73,9 @@
         
         // nur wenn Bild offen
         if ($("div.item-container").length) {
+            
+            // Angezeigte Nachricht wieder erlauben
+            errorDisplayed = false;
             
             //$('.item-container').hide();
             $('.item-container').fadeIn();
@@ -203,7 +207,10 @@
                 
                 // Prüfen ob eine ausreichende Bildschirmbreite vorhanden ist
                 if ($(window).width() < 1100) {
+                    if(!errorDisplayed){
                     alert('Der Zoom macht unter einer Bildschirmbreite von 1100 Pixeln keinen Sinn!');
+                        errorDisplayed = true;
+                    }
                 } else {
                     
                     //Breite für die Kommentarbox und Spacing abziehen
@@ -252,7 +259,10 @@
             // Bild mit Space vergrößern
             if ($('.item-image').length !== 0) {
                 if ($(window).width() < 1100) {
+                    if(!errorDisplayed){
                     alert('Der Zoom funktioniert erst ab 1100 Pixeln Bildschirmbreite!');
+                    }
+                    errorDisplayed = true;
                     event.preventDefault();
                     event.stopPropagation();
                 }
