@@ -5,7 +5,7 @@
 // @author		Error404
 // @description Imr0ve das Pr0 2.0
 // @include     http://pr0gramm.com/*
-// @version     2.5
+// @version     2.5.1
 // @grant       none
 // @require		http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
@@ -259,12 +259,14 @@
         '#head-content:after { left: 7px !important;}'+
         '#head-content { background-color: #040405 !important; border-bottom: 2px solid #232326;}'+
         '.pane, .pane-head, .tab-bar, .user-stats, .in-pane { width: 792px; margin: 0 auto !important;}'+
-        '#random { float: right; margin-top: 2px; margin-left: 10px; height: 16px; width: 16px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAARCQAAEQkAGJrNK4AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEfSURBVHjazNK/K8VRHMbx1/dehIVbSpcJJWVguFKMRmUxGCibP8Ji8g8Y7mIxmxgYLEpXGUgokx+DhQhd9+tH0rUc+k7X9WPwWU6ncz7v8zyf80TlctlvK+UP6v9Aah4e4+R+BgNIV+h5wz7yn5DE4SzmvyGgFXMQFeMSjGH1B04msPwxk2bE3wQ8o+ljsBFekMNKlYA19KOIdFSMSwUMYxuT2ME1znATXqxHBh3IYgiLGMFuDQYDfRjj6EEvWoLN2vAjdwF+jKkAgFxUjEt9WEcbnnCB7gpWToOaRlxhNIUDbIQLDV8AoCsAYBN7qUSAflJvybDl0R5UdFbRfI4TLCQhR9hCAUtfKIswHdbDZGIzuMUr6qpQch+ClsXl+wCQR0NjActcNgAAAABJRU5ErkJggg==);} '+
+        '#random { float: right; margin-top: 0px; margin-left: 10px; height: 16px; width: 16px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAARCQAAEQkAGJrNK4AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEfSURBVHjazNK/K8VRHMbx1/dehIVbSpcJJWVguFKMRmUxGCibP8Ji8g8Y7mIxmxgYLEpXGUgokx+DhQhd9+tH0rUc+k7X9WPwWU6ncz7v8zyf80TlctlvK+UP6v9Aah4e4+R+BgNIV+h5wz7yn5DE4SzmvyGgFXMQFeMSjGH1B04msPwxk2bE3wQ8o+ljsBFekMNKlYA19KOIdFSMSwUMYxuT2ME1znATXqxHBh3IYgiLGMFuDQYDfRjj6EEvWoLN2vAjdwF+jKkAgFxUjEt9WEcbnnCB7gpWToOaRlxhNIUDbIQLDV8AoCsAYBN7qUSAflJvybDl0R5UdFbRfI4TLCQhR9hCAUtfKIswHdbDZGIzuMUr6qpQch+ClsXl+wCQR0NjActcNgAAAABJRU5ErkJggg==);} '+
         
         '#random:hover { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAARCQAAEQkAGJrNK4AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEaSURBVHjazNO/K8RxHMfxx/fuCAtXSseEklLHcKJuNOosykLZbP4BA5N/wHCLxZ9gYbAoPzYSyuTHYCE6UkK6zvK5+k7uDoPX8unz4/38vF593p+oUqn4rRL+QP8HEpUK2fh8AaNIflNTxgmK1YVUbHMJqw0Y6MJKPM5UgwBYxkwc0oHXBiHvaK9CInwgh806AVsYwQuSKewjj0PMYhwPuMZjuLEFafQig0WsYwJHKYwFeh7TGMQQOkPMpvAiTwF+gbkAgFxUKmSHsY1uvOEWA99EuQpu2nCPyQROsRMOtNYAQH8AwC6OE7EG+onK8WYroie46Kuj+AaXWItDzrGHA2zUcBZhPoxn8b+TRgmfaK7DyXNotAzuvgYAbyA4nkq8OzEAAAAASUVORK5CYII=); cursor: pointer;}'+
         '#brille { float: right; margin-left: 10px; margin-top: 2px; height: 17px; width: 17px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAABJ0AAASdAHeZh94AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEJSURBVHjanNStSwRBGMfxzy4LokGLYNBgsYhNQTAaNIhBMFhNxgtaNZiEKxZFDCarcMEqJjH48gf4D4ggF4TdDXJoGY9jce8cn/K8zpeZ4TeT5GUB4zjAtL/bG5p4yQLgEqvibRFbSV4WF9jGCU4jAOs4QivJy+IGyxjDR+ROvnCXIg+FyUjAaPBl2lNMIiHd+TRi0T5KjFQbdZA9LPXkDRziHp/V4awG0gx+Ams4xhU2fxuugyzgMQgKrusA/Y7zhPkQPwRN1FrWp/cc+p1BN55WhFO1zgChdSHDIX6N1MmPuocytEOyg7MIyErwRZKXxQxamP3HK25jIwn/yRx2MRUBeMc5br8HAIJvOCo2x8ekAAAAAElFTkSuQmCC);}'+
         '#brille:hover, #brille.active { cursor: pointer; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAABJ0AAASdAHeZh94AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEHSURBVHjanNO/K8VhFMfx1719SwwmMlAsFsNdKOUPYNAdlOI/MN6BSTEoJXexkMxWZfAXWAx+jAb+ACl9B8UdpGs59O12v5fHWc6Pz3nePefpPJW8XoMhbGPC3+0ZTTxkATjFgnSbxWqG/QAc4igBUMcedjOMR3ETrwmQ+4AMV/EWxdHEUQbDt6qFYiUR8tNfTTi0hRYGOoUyyAbmCnkDO7jCR2dzVgJphh/BIg5whuVuzWWQGdzEQsFFGaDXOLeYjvg6dqLUsh7aXeifv7148SbtLnovQLsI6Y/4KXFPvre7L0MeyRqOEyDz4d8reb02iXNM/eMX51jK8IgVrGMsAfCCE1x+DQDslCyF2ZAs+QAAAABJRU5ErkJggg==);)}'+
         '#brille.active:hover { cursor: pointer; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAABJ0AAASdAHeZh94AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEJSURBVHjanNStSwRBGMfxzy4LokGLYNBgsYhNQTAaNIhBMFhNxgtaNZiEKxZFDCarcMEqJjH48gf4D4ggF4TdDXJoGY9jce8cn/K8zpeZ4TeT5GUB4zjAtL/bG5p4yQLgEqvibRFbSV4WF9jGCU4jAOs4QivJy+IGyxjDR+ROvnCXIg+FyUjAaPBl2lNMIiHd+TRi0T5KjFQbdZA9LPXkDRziHp/V4awG0gx+Ams4xhU2fxuugyzgMQgKrusA/Y7zhPkQPwRN1FrWp/cc+p1BN55WhFO1zgChdSHDIX6N1MmPuocytEOyg7MIyErwRZKXxQxamP3HK25jIwn/yRx2MRUBeMc5br8HAIJvOCo2x8ekAAAAAElFTkSuQmCC);}'+
+        
+        'div.item-vote span.score {top: -3px}'+
         
         'body { overflow-x:hidden; overflow-y: auto; }'+
         '#page { padding-left: 0px !important; margin: 0 0 0 0 !important; width: 100% !important; position: absolute !important;}'+
@@ -513,23 +515,15 @@
         }
         
         // Random Button aktualisieren
-        if (document.getElementById('random').getAttribute('href') == '') {
-            
-            
+        if (document.getElementById('random').getAttribute('href') == '') {  
             prepareButton();
         }
         
         // Beim Laden von neuem Content saveid aufrufen
         if ($('#brille').hasClass('active')) {
-            
-            
-            
             scrolled = check_if_scrolled();
-            if (scrolled && $('#stream').length && !$('.item-image').length) {
-                
-                
+            if (scrolled && $('#stream').length && !$('.item-image').length) { 
                 saveid();
-                
             }
         }
         
@@ -643,8 +637,6 @@
     
     function keydown(event) {
         
-        
-        
         if (event.keyCode == '32') {
             
             // falls textarea aktiv
@@ -669,320 +661,324 @@
                 }
             }
         }
-    }
-    
-    // side ratio calculation
-    
-    function ratioCalculation() {
-        if ($("div.item-container").length) {
-            console.log("NEWPICTURE!!!!!!!!!!!!!!!!!!!!!!!");
-            var itemNaturalHeight = document.getElementsByClassName("item-image")[0].naturalHeight, //return = 0 bei WEBM
-                itemNaturalWidth = document.getElementsByClassName("item-image")[0].naturalWidth; //return = 0 bei WEBM
-            console.log(itemNaturalHeight,"+",itemNaturalWidth);
+        
+        if (event.keyCode == '65' || '68' || '37' || '39') {
             
-            //if picture height is limit when zoomed
-            if (widthitemimage/highitemimage>itemNaturalWidth/itemNaturalHeight){
-                console.log("Begrenzung durch Höhe "+highitemimage);
-                //        $('.item-image').css('height', highitemimage+'px !important');
-                document.getElementsByClassName("item-image")[0].style.height=highitemimage+'px';
-                $('.item-image').css('width', 'auto');
-                
-                //if picture width is limit when zoomed
-            }else{
-                console.log("Begrenzung durch Breite "+widthitemimage);
-                //         $('.item-image').css('width', widthitemimage+'px !important');
-                document.getElementsByClassName("item-image")[0].style.width=widthitemimage+'px';
-                $('.item-image').css('height', 'auto');
+            // falls textarea aktiv
+            var el = document.activeElement;
+            if (el && (el.tagName.toLowerCase() == 'input' && el.type == 'text' || el.tagName.toLowerCase() == 'textarea')) {
+                return;
+            }
+            
+            if ($('.item-image').length != 0) {
+                ratioCalculation();    
             }
         }
-    }   
-    
-    // Image Scroll
-    
-    // Firefox
-    document.addEventListener("DOMMouseScroll", handleWheel, false);
-    // IE9, Chrome, Safari, Opera
-    document.addEventListener("mousewheel", handleWheel, false);
-    // IE 6/7/8
-    if(!document.addEventListener) {
-        document.attachEvent("onmousewheel", handleWheel);
     }
-    
-    function handleWheel(event) {
         
-        if ($("div.item-container").length) {
-            var coms = document.getElementsByClassName("item-comments");
-            if (isHover(coms[0])) {
-                return;
-            }
-            
-            event.preventDefault();
-            event.stopPropagation();
-            event.returnValue=false;
-            
-            var wheelWait = 200;
-            var time = (new Date()).getTime();
-            var msec = time - wheelLast;
-            wheelLast = time;
-            if (msec < wheelWait) {
-                return;
-            }
-            
-            var delta = 0;
-            if (!event) 
-                event = window.event;
-            if (event.wheelDelta) { 
-                delta = event.wheelDelta/120;
-            } else if (event.detail) { 
-                delta = -event.detail/3;
-            }
+        // side ratio calculation
+        
+        function ratioCalculation() {
+            if ($("div.item-container").length) {
+                console.log("NEWPICTURE!!!!!!!!!!!!!!!!!!!!!!!");
+                var itemNaturalHeight = document.getElementsByClassName("item-image")[0].naturalHeight, //return = 0 bei WEBM
+                    itemNaturalWidth = document.getElementsByClassName("item-image")[0].naturalWidth; //return = 0 bei WEBM
+                console.log(itemNaturalHeight,"+",itemNaturalWidth);
                 
-                if(delta<0){
-                    $('.stream-next').click();
+                //if picture height is limit when zoomed
+                if (widthitemimage/highitemimage>itemNaturalWidth/itemNaturalHeight){
+                    console.log("Begrenzung durch Höhe "+highitemimage);
+                    //        $('.item-image').css('height', highitemimage+'px !important');
+                    document.getElementsByClassName("item-image")[0].style.height=highitemimage+'px';
+                    $('.item-image').css('width', 'auto');
+                    
+                    //if picture width is limit when zoomed
                 }else{
-                    $('.stream-prev').click();
+                    console.log("Begrenzung durch Breite "+widthitemimage);
+                    //         $('.item-image').css('width', widthitemimage+'px !important');
+                    document.getElementsByClassName("item-image")[0].style.width=widthitemimage+'px';
+                    $('.item-image').css('height', 'auto');
                 }
-            ratioCalculation();
-        }
-    }
-    
-    function isHover(e) {
-        if (!e) return false;
-        return (e.parentElement.querySelector(':hover') === e);
-    }
-    
-    
-    // Code für den Random Button     
-    function prepareButton() {
-        var lastId = localStorage.getItem('pr0latestId');
-        if (!lastId) {
-            if ($('.stream-row a:first').length) {
-                lastId = parseInt($('.stream-row a:first').attr('id'));
-            }else{
-                lastId = 137544;
             }
+        }   
+        
+        // Image Scroll
+        
+        // Firefox
+        document.addEventListener("DOMMouseScroll", handleWheel, false);
+        // IE9, Chrome, Safari, Opera
+        document.addEventListener("mousewheel", handleWheel, false);
+        // IE 6/7/8
+        if(!document.addEventListener) {
+            document.attachEvent("onmousewheel", handleWheel);
+        }
+        
+        function handleWheel(event) {
             
-            
-            
-            localStorage.setItem('pr0latestId', lastId);
+            if ($("div.item-container").length) {
+                var coms = document.getElementsByClassName("item-comments");
+                if (isHover(coms[0])) {
+                    return;
+                }
+                
+                event.preventDefault();
+                event.stopPropagation();
+                event.returnValue=false;
+                
+                var wheelWait = 200;
+                var time = (new Date()).getTime();
+                var msec = time - wheelLast;
+                wheelLast = time;
+                if (msec < wheelWait) {
+                    return;
+                }
+                
+                var delta = 0;
+                if (!event) 
+                    event = window.event;
+                if (event.wheelDelta) { 
+                    delta = event.wheelDelta/120;
+                } else if (event.detail) { 
+                    delta = -event.detail/3;
+                }
+                    
+                    if(delta<0){
+                        $('.stream-next').click();
+                    }else{
+                        $('.stream-prev').click();
+                    }
+                ratioCalculation(); 
+            }
+        }
+        
+        function isHover(e) {
+            if (!e) return false;
+            return (e.parentElement.querySelector(':hover') === e);
         }
         
         
+        // Code für den Random Button     
+        function prepareButton() {
+            var lastId = localStorage.getItem('pr0latestId');
+            if (!lastId) {
+                if ($('.stream-row a:first').length) {
+                    lastId = parseInt($('.stream-row a:first').attr('id'));
+                }else{
+                    lastId = 137544;
+                }
+                localStorage.setItem('pr0latestId', lastId);
+            }
+            var imageId = Math.floor((Math.random() * lastId) + 1);
+            dingsda = document.getElementById('random');
+            dingsda.setAttribute('href', 'http://pr0gramm.com/new/' + imageId);
+        }
         
         
-        var imageId = Math.floor((Math.random() * lastId) + 1);
-        dingsda = document.getElementById('random');
-        dingsda.setAttribute('href', 'http://pr0gramm.com/new/' + imageId);
-    }
-    
-    
-    // Custom Scrollbar
-    var ssb = {
-        aConts  : [],
-        mouseY : 0,
-        N  : 0,
-        asd : 0,
-        sc : 0,
-        sp : 0,
-        to : 0,
-        
-        // constructor
-        scrollbar : function (cont_id) {
-            if (cont_id == 'item-comments') { var cont = document.getElementsByClassName(cont_id)[0]; }
-            else if (cont_id == 'page') { var cont = document.getElementById(cont_id);}
-                else if (cont_id == 'html') { var cont = document.getElementsByTagName('html')[0];}
+        // Custom Scrollbar
+        var ssb = {
+            aConts  : [],
+            mouseY : 0,
+            N  : 0,
+            asd : 0,
+            sc : 0,
+            sp : 0,
+            to : 0,
+            
+            // constructor
+            scrollbar : function (cont_id) {
+                if (cont_id == 'item-comments') { var cont = document.getElementsByClassName(cont_id)[0]; }
+                else if (cont_id == 'page') { var cont = document.getElementById(cont_id);}
+                    else if (cont_id == 'html') { var cont = document.getElementsByTagName('html')[0];}
+                    
+                    // perform initialization
+                    if (! ssb.init()) return false;
                 
-                // perform initialization
-                if (! ssb.init()) return false;
-            
-            var cont_clone = cont.cloneNode(false);
-            cont_clone.style.overflow = "hidden";
-            cont.parentNode.appendChild(cont_clone);
-            cont_clone.appendChild(cont);
-            
-            
-            
-            
-            cont.className = cont.className.replace("fadeInLeft", "");
-            
-            // adding new container into array
-            ssb.aConts[ssb.N++] = cont;
-            
-            cont.sg = false;
-            
-            //creating scrollbar child elements
-            cont.st = this.create_div('ssb_st', cont, cont_clone);
-            cont.sb = this.create_div('ssb_sb', cont, cont_clone);
-            cont.su = this.create_div('ssb_up', cont, cont_clone);
-            cont.sd = this.create_div('ssb_down', cont, cont_clone);
-            
-            // on mouse down processing
-            cont.sb.onmousedown = function (e) {
-                if (! this.cont.sg) {
+                var cont_clone = cont.cloneNode(false);
+                cont_clone.style.overflow = "hidden";
+                cont.parentNode.appendChild(cont_clone);
+                cont_clone.appendChild(cont);
+                
+                cont.className = cont.className.replace("fadeInLeft", "");
+                
+                // adding new container into array
+                ssb.aConts[ssb.N++] = cont;
+                
+                cont.sg = false;
+                
+                //creating scrollbar child elements
+                cont.st = this.create_div('ssb_st', cont, cont_clone);
+                cont.sb = this.create_div('ssb_sb', cont, cont_clone);
+                cont.su = this.create_div('ssb_up', cont, cont_clone);
+                cont.sd = this.create_div('ssb_down', cont, cont_clone);
+                
+                // on mouse down processing
+                cont.sb.onmousedown = function (e) {
+                    if (! this.cont.sg) {
+                        if (! e) e = window.event;
+                        
+                        ssb.asd = this.cont;
+                        this.cont.yZ = e.screenY;
+                        this.cont.sZ = cont.scrollTop;
+                        this.cont.sg = true;
+                        
+                        // new class name
+                        this.className = 'ssb_sb ssb_sb_down';
+                    }
+                    return false;
+                }
+                // on mouse down on free track area - move our scroll element too
+                cont.st.onmousedown = function (e) {
                     if (! e) e = window.event;
-                    
                     ssb.asd = this.cont;
-                    this.cont.yZ = e.screenY;
-                    this.cont.sZ = cont.scrollTop;
-                    this.cont.sg = true;
                     
+                    ssb.mouseY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+                    for (var o = this.cont, y = 0; o != null; o = o.offsetParent) y += o.offsetTop;
+                    this.cont.scrollTop = (ssb.mouseY - y - (this.cont.ratio * this.cont.offsetHeight / 2) - this.cont.sw) / this.cont.ratio;
+                    this.cont.sb.onmousedown(e);
+                }
+                
+                // onmousedown events
+                cont.su.onmousedown = cont.su.ondblclick = function (e) { ssb.mousedown(this, -1); return false; }
+                cont.sd.onmousedown = cont.sd.ondblclick = function (e) { ssb.mousedown(this,  1); return false; }
+                
+                //onmouseout events
+                cont.su.onmouseout = cont.su.onmouseup = ssb.clear;
+                cont.sd.onmouseout = cont.sd.onmouseup = ssb.clear;
+                
+                // on mouse over - apply custom class name: ssb_sb_over
+                cont.sb.onmouseover = function (e) {
+                    if (! this.cont.sg) this.className = 'ssb_sb ssb_sb_over';
+                    return false;
+                }
+                
+                // on mouse out - revert back our usual class name 'ssb_sb'
+                cont.sb.onmouseout  = function (e) {
+                    if (! this.cont.sg) this.className = 'ssb_sb';
+                    return false;
+                }
+                
+                // onscroll - change positions of scroll element
+                cont.ssb_onscroll = function () {
+                    //var coms = document.getElementsByClassName("comments")[0];
+                    
+                    //if (isHover(coms[0])) {
+                    if (cont_id == 'item-comments') {
+                        this.ratio = this.offsetHeight / ($('.comments').outerHeight(true) + 128);//187+33
+                    }else{
+                        this.ratio = ($(window).height()-52) / ($('.comments').outerHeight(true) + 187 + 53); //#main-view
+                        //this.st.style.height =  $('#main-view').height() + 'px';
+                        //this.sb.style.height = Math.ceil(this.ratio * 666) + 'px';
+                    }
+                    this.sb.style.top = Math.floor(this.scrollTop * this.ratio) + 'px';
+                    //}
+                }
+                
+                // scrollbar width
+                cont.sw = 11;
+                
+                // start scrolling
+                cont.ssb_onscroll();
+                ssb.refresh();
+                
+                // binding own onscroll event
+                cont.onscroll = cont.ssb_onscroll;
+                var conte = document.getElementById('page');
+                
+                
+                
+                //elem.onscroll = cont.ssb_onscroll;
+                return cont;
+            },
+            
+            // initialization
+            init : function () {
+                if (window.oper || (! window.addEventListener && ! window.attachEvent)) { return false; }
+                
+                // temp inner function for event registration
+                function addEvent (o, e, f) {
+                    if (window.addEventListener) { o.addEventListener(e, f, false); ssb.w3c = true; return true; }
+                    if (window.attachEvent) return o.attachEvent('on' + e, f);
+                    return false;
+                }
+                
+                // binding events
+                addEvent(window.document, 'mousemove', ssb.onmousemove);
+                addEvent(window.document, 'mouseup', ssb.onmouseup);
+                addEvent(window, 'resize', ssb.refresh);
+                return true;
+            },
+            
+            // create and append div finc
+            create_div : function(c, cont, cont_clone) {
+                var o = document.createElement('div');
+                o.cont = cont;
+                o.className = c;
+                cont_clone.appendChild(o);
+                return o;
+            },
+            // do clear of controls
+            clear : function () {
+                clearTimeout(ssb.to);
+                ssb.sc = 0;
+                return false;
+            },
+            // refresh scrollbar
+            refresh : function () {
+                for (var i = 0, N = ssb.N; i < N; i++) {
+                    var o = ssb.aConts[i];
+                    o.ssb_onscroll();
+                    o.sb.style.width = o.su.style.width = o.su.style.height = o.sd.style.width = o.sd.style.height = o.sw + 'px';
+                    o.st.style.width = (o.sw + 6) + 'px';
+                    o.st.style.height =  $(window).height() - 51 + 'px'; //'#main-view'
+                    
+                    o.sb.style.height = Math.ceil(o.ratio * 666) + 'px';
+                    o.sb.style.right = '3px';
+                }
+            },
+            // arrow scrolling
+            arrow_scroll : function () {
+                if (ssb.sc != 0) {
+                    ssb.asd.scrollTop += 6 * ssb.sc / ssb.asd.ratio;
+                    ssb.to = setTimeout(ssb.arrow_scroll, ssb.sp);
+                    ssb.sp = 32;
+                }
+            },
+            
+            
+            // scroll on mouse down
+            mousedown : function (o, s) {
+                if (ssb.sc == 0) {
                     // new class name
-                    this.className = 'ssb_sb ssb_sb_down';
+                    o.cont.sb.className = 'ssb_sb ssb_sb_down';
+                    ssb.asd = o.cont;
+                    ssb.sc = s;
+                    ssb.sp = 400;
+                    ssb.arrow_scroll();
                 }
-                return false;
-            }
-            // on mouse down on free track area - move our scroll element too
-            cont.st.onmousedown = function (e) {
+            },
+            // on mouseMove binded event
+            onmousemove : function(e) {
                 if (! e) e = window.event;
-                ssb.asd = this.cont;
+                // get vertical mouse position
+                ssb.mouseY = e.screenY;
+                if (ssb.asd.sg) ssb.asd.scrollTop = ssb.asd.sZ + (ssb.mouseY - ssb.asd.yZ) / ssb.asd.ratio;
+            },
+            // on mouseUp binded event
+            onmouseup : function (e) {
+                if (! e) e = window.event;
+                var tg = (e.target) ? e.target : e.srcElement;
+                if (ssb.asd && document.releaseCapture) ssb.asd.releaseCapture();
                 
-                ssb.mouseY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-                for (var o = this.cont, y = 0; o != null; o = o.offsetParent) y += o.offsetTop;
-                this.cont.scrollTop = (ssb.mouseY - y - (this.cont.ratio * this.cont.offsetHeight / 2) - this.cont.sw) / this.cont.ratio;
-                this.cont.sb.onmousedown(e);
-            }
-            
-            // onmousedown events
-            cont.su.onmousedown = cont.su.ondblclick = function (e) { ssb.mousedown(this, -1); return false; }
-            cont.sd.onmousedown = cont.sd.ondblclick = function (e) { ssb.mousedown(this,  1); return false; }
-            
-            //onmouseout events
-            cont.su.onmouseout = cont.su.onmouseup = ssb.clear;
-            cont.sd.onmouseout = cont.sd.onmouseup = ssb.clear;
-            
-            // on mouse over - apply custom class name: ssb_sb_over
-            cont.sb.onmouseover = function (e) {
-                if (! this.cont.sg) this.className = 'ssb_sb ssb_sb_over';
-                return false;
-            }
-            
-            // on mouse out - revert back our usual class name 'ssb_sb'
-            cont.sb.onmouseout  = function (e) {
-                if (! this.cont.sg) this.className = 'ssb_sb';
-                return false;
-            }
-            
-            // onscroll - change positions of scroll element
-            cont.ssb_onscroll = function () {
-                //var coms = document.getElementsByClassName("comments")[0];
-                
-                //if (isHover(coms[0])) {
-                if (cont_id == 'item-comments') {
-                    this.ratio = this.offsetHeight / ($('.comments').outerHeight(true) + 128);//187+33
-                }else{
-                    this.ratio = ($(window).height()-52) / ($('.comments').outerHeight(true) + 187 + 53); //#main-view
-                    //this.st.style.height =  $('#main-view').height() + 'px';
-                    //this.sb.style.height = Math.ceil(this.ratio * 666) + 'px';
-                }
-                this.sb.style.top = Math.floor(this.scrollTop * this.ratio) + 'px';
-                //}
-            }
-            
-            // scrollbar width
-            cont.sw = 11;
-            
-            // start scrolling
-            cont.ssb_onscroll();
-            ssb.refresh();
-            
-            // binding own onscroll event
-            cont.onscroll = cont.ssb_onscroll;
-            var conte = document.getElementById('page');
-            
-            
-            
-            //elem.onscroll = cont.ssb_onscroll;
-            return cont;
-        },
-        
-        // initialization
-        init : function () {
-            if (window.oper || (! window.addEventListener && ! window.attachEvent)) { return false; }
-            
-            // temp inner function for event registration
-            function addEvent (o, e, f) {
-                if (window.addEventListener) { o.addEventListener(e, f, false); ssb.w3c = true; return true; }
-                if (window.attachEvent) return o.attachEvent('on' + e, f);
-                return false;
-            }
-            
-            // binding events
-            addEvent(window.document, 'mousemove', ssb.onmousemove);
-            addEvent(window.document, 'mouseup', ssb.onmouseup);
-            addEvent(window, 'resize', ssb.refresh);
-            return true;
-        },
-        
-        // create and append div finc
-        create_div : function(c, cont, cont_clone) {
-            var o = document.createElement('div');
-            o.cont = cont;
-            o.className = c;
-            cont_clone.appendChild(o);
-            return o;
-        },
-        // do clear of controls
-        clear : function () {
-            clearTimeout(ssb.to);
-            ssb.sc = 0;
-            return false;
-        },
-        // refresh scrollbar
-        refresh : function () {
-            for (var i = 0, N = ssb.N; i < N; i++) {
-                var o = ssb.aConts[i];
-                o.ssb_onscroll();
-                o.sb.style.width = o.su.style.width = o.su.style.height = o.sd.style.width = o.sd.style.height = o.sw + 'px';
-                o.st.style.width = (o.sw + 6) + 'px';
-                o.st.style.height =  $(window).height() - 51 + 'px'; //'#main-view'
-                
-                o.sb.style.height = Math.ceil(o.ratio * 666) + 'px';
-                o.sb.style.right = '3px';
-            }
-        },
-        // arrow scrolling
-        arrow_scroll : function () {
-            if (ssb.sc != 0) {
-                ssb.asd.scrollTop += 6 * ssb.sc / ssb.asd.ratio;
-                ssb.to = setTimeout(ssb.arrow_scroll, ssb.sp);
-                ssb.sp = 32;
-            }
-        },
-        
-        
-        // scroll on mouse down
-        mousedown : function (o, s) {
-            if (ssb.sc == 0) {
                 // new class name
-                o.cont.sb.className = 'ssb_sb ssb_sb_down';
-                ssb.asd = o.cont;
-                ssb.sc = s;
-                ssb.sp = 400;
-                ssb.arrow_scroll();
+                if (ssb.asd) ssb.asd.sb.className = (tg.className.indexOf('scrollbar') > 0) ? 'ssb_sb ssb_sb_over' : 'ssb_sb';
+                document.onselectstart = '';
+                ssb.clear();
+                ssb.asd.sg = false;
             }
-        },
-        // on mouseMove binded event
-        onmousemove : function(e) {
-            if (! e) e = window.event;
-            // get vertical mouse position
-            ssb.mouseY = e.screenY;
-            if (ssb.asd.sg) ssb.asd.scrollTop = ssb.asd.sZ + (ssb.mouseY - ssb.asd.yZ) / ssb.asd.ratio;
-        },
-        // on mouseUp binded event
-        onmouseup : function (e) {
-            if (! e) e = window.event;
-            var tg = (e.target) ? e.target : e.srcElement;
-            if (ssb.asd && document.releaseCapture) ssb.asd.releaseCapture();
-            
-            // new class name
-            if (ssb.asd) ssb.asd.sb.className = (tg.className.indexOf('scrollbar') > 0) ? 'ssb_sb ssb_sb_over' : 'ssb_sb';
-            document.onselectstart = '';
-            ssb.clear();
-            ssb.asd.sg = false;
         }
-    }
-    
-    /*
+        
+        
+        /*
 function getID() {
 	var url = window.location.pathname;
 	var id = url.match('([0-9]{2,7})');
@@ -1008,6 +1004,6 @@ function reloadcomments(id) {
 		});
 }
 */
-    
-    
-    })();
+        
+        
+        })();
