@@ -5,7 +5,7 @@
 // @author		Error404
 // @description Imr0ve das Pr0 2.0
 // @include     http://pr0gramm.com/*
-// @version     2.5.1
+// @version     2.5.2
 // @grant       none
 // @require		http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
@@ -77,11 +77,6 @@
             }
         }
         this.currentItemId = id;
-        
-        
-        
-        
-        
     }
     
     p.View.Stream.Main.prototype.loaded = function(items, position, error) {
@@ -136,7 +131,7 @@
             if (this.jumpToItem) {
                 var target = $('#item-' + this.jumpToItem);
                 if (target.length) {
-                    alert("scrolltop");
+                    //     alert("scrolltop");
                     $(document).scrollTop(target.offset().top - CONFIG.HEADER_HEIGHT);
                     this.showItem(target);
                 }
@@ -148,8 +143,7 @@
     
     
     // Comments sortieren	
-    p.View.Stream.Comments.prototype.template = '<div class="comments-head" style="display:none"> <span class="pict">c</span> {"Kommentar".inflect(commentCount)} </div> <div class="comments-large-rectangle gpt" id="gpt-rectangle-comments" data-size="336x280" data-slot="pr0gramm-rectangle"></div> <form style="display:none" class="comment-form" method="post"> <textarea class="comment" name="comment" required placeholder="Kommentar schreiben..."></textarea> <input type="hidden" name="parentId" value="0"/> <input type="hidden" name="itemId" value="{params.id}"/> <div> <input type="submit" value="Abschicken"/> <input type="button" value="Abbrechen" class="cancel"/><?js if(commentCount > 0) { ?> <span class="sorter"><a id="com-new" href="">[ Neuste</a> | <a id="com-top" href="">Top ]</a></span> <?js } ?> </div> </form> <form class="comment-edit-form" method="post"> <textarea class="comment" required name="comment"></textarea> <input type="hidden" name="commentId" value="0"/> <div> <input type="submit" value="Abschicken"/> <input type="button" value="Abbrechen" class="cancel"/> </div> </form> <div style="display:none" class="comments"> <?js var recurseComments = function( comments, level ) { ?> <div class="comment-box"> <?js for( var i = 0; i < comments.length; i++ ) { var c = comments[i]; ?> <div class="comment{p.voteClass(c.vote)}" id="comment{c.id}"> <div class="comment-vote"> <span class="pict vote-up">+</span> <span class="pict vote-down">-</span> </div> <div class="comment-content"> {c.content.format()} </div> <div class="comment-foot"> <a href="#user/{c.name}" class="user um{c.mark}">{c.name}</a> <span class="score" title="{c.up} up, {c.down} down">{"Punkt".inflect(c.score)}</span> <a href="#{tab}/{itemId}:comment{c.id}" class="time permalink" title="{c.createdReadable}">{c.createdRelative}</a> <?js if( level < CONFIG.COMMENTS_MAX_LEVELS && !linearComments ) {?> <a href="#{tab}/{itemId}:comment{c.id}" class="comment-reply-link action"><span class="pict">r</span> antworten</a> <?js } ?> <?js if( /*c.user == p.user.name ||*/ p.user.admin ) {?> [ <span class="comment-delete action">del</span> / <a href="#{tab}/{itemId}:comment{c.id}" class="comment-edit-link action">edit</a> ] <?js } ?> </div> </div> <?js if( c.children.length ) { recurseComments(c.children, level+1); } ?> <?js } ?> </div> <?js }; ?> <?js recurseComments(comments, 1); ?> </div> ';
-    
+    p.View.Stream.Comments.prototype.template = '<div class="comments-head" style="display:none"> <span class="pict">c</span> {"Kommentar".inflect(commentCount)} </div> <div class="comments-large-rectangle gpt" id="gpt-rectangle-comments" data-size="336x280" data-slot="pr0gramm-rectangle"></div> <form style="display:none" class="comment-form" method="post"> <textarea class="comment" name="comment" required placeholder="Kommentar schreiben..."></textarea> <input type="hidden" name="parentId" value="0"/> <input type="hidden" name="itemId" value="{params.id}"/> <div> <input type="submit" value="Abschicken"/> <input type="button" value="Abbrechen" class="cancel"/><?js if(commentCount > 0) { ?> <span class="sorter"><a id="com-new" href="">[ Neuste</a> | <a id="com-top" href="">Top ]</a></span> <?js } ?> </div> </form> <form class="comment-edit-form" method="post"> <textarea class="comment" required name="comment"></textarea> <input type="hidden" name="commentId" value="0"/> <div> <input type="submit" value="Abschicken"/> <input type="button" value="Abbrechen" class="cancel"/> </div> </form> <div style="display:none" class="comments"> <?js var recurseComments = function( comments, level ) { ?> <div class="comment-box"> <?js for( var i = 0; i < comments.length; i++ ) { var c = comments[i]; ?> <div class="comment{p.voteClass(c.vote)}" id="comment{c.id}"> <div class="comment-vote"> <span class="pict vote-up">+</span> <span class="pict vote-down">-</span> </div> <div class="comment-content"> {c.content.format()} </div> <div class="comment-foot"> <a href="#user/{c.name}" class="user um{c.mark}">{c.name}</a> <span class="score" title="{c.up} up, {c.down} down">{"Punkt".inflect(c.score)}</span> <a href="#{tab}/{itemId}:comment{c.id}" class="time permalink" title="{c.createdReadable}">{c.createdRelative}</a> <?js if( level < CONFIG.COMMENTS_MAX_LEVELS && !linearComments ) {?> <a href="#{tab}/{itemId}:comment{c.id}" class="comment-reply-link action"><span class="pict">r</span> antworten</a> <?js } ?> <?js if( /*c.user == p.user.name ||*/ p.user.admin ) {?> [ <span class="comment-delete action">del</span> / <a href="#{tab}/{itemId}:comment{c.id}" class="comment-edit-link action">edit</a> ] <?js } ?> </div> </div> <?js if( c.children.length ) { recurseComments(c.children, level+1); } ?> <?js } ?> </div> <?js }; ?> <?js recurseComments(comments, 1); ?> </div> ';    
     p.View.Stream.Comments.SortTime = function(a, b) {
         return (b.created - a.created);
     }
@@ -213,7 +207,6 @@
     
     // Random Button und Bereits gesehen Button	
     $('#head-menu').append('<a class="link" title="bereits gesehen-Feature aktivieren\/deaktivieren" id="brille" href=""></a><a class="link" id="random" title="Random Upload aufrufen" href=""></a>');
-    
     
     
     /****/// CSS
@@ -675,310 +668,327 @@
             }
         }
     }
-        
-        // side ratio calculation
-        
-        function ratioCalculation() {
-            if ($("div.item-container").length) {
-                console.log("NEWPICTURE!!!!!!!!!!!!!!!!!!!!!!!");
-                var itemNaturalHeight = document.getElementsByClassName("item-image")[0].naturalHeight, //return = 0 bei WEBM
-                    itemNaturalWidth = document.getElementsByClassName("item-image")[0].naturalWidth; //return = 0 bei WEBM
-                console.log(itemNaturalHeight,"+",itemNaturalWidth);
-                
-                //if picture height is limit when zoomed
-                if (widthitemimage/highitemimage>itemNaturalWidth/itemNaturalHeight){
-                    console.log("Begrenzung durch Höhe "+highitemimage);
-                    //        $('.item-image').css('height', highitemimage+'px !important');
-                    document.getElementsByClassName("item-image")[0].style.height=highitemimage+'px';
-                    $('.item-image').css('width', 'auto');
-                    
-                    //if picture width is limit when zoomed
-                }else{
-                    console.log("Begrenzung durch Breite "+widthitemimage);
-                    //         $('.item-image').css('width', widthitemimage+'px !important');
-                    document.getElementsByClassName("item-image")[0].style.width=widthitemimage+'px';
-                    $('.item-image').css('height', 'auto');
-                }
-            }
-        }   
-        
-        // Image Scroll
-        
-        // Firefox
-        document.addEventListener("DOMMouseScroll", handleWheel, false);
-        // IE9, Chrome, Safari, Opera
-        document.addEventListener("mousewheel", handleWheel, false);
-        // IE 6/7/8
-        if(!document.addEventListener) {
-            document.attachEvent("onmousewheel", handleWheel);
-        }
-        
-        function handleWheel(event) {
+    
+    // side ratio calculation
+    function ratioCalculation() {
+        if ($("div.item-container").length) {
             
-            if ($("div.item-container").length) {
-                var coms = document.getElementsByClassName("item-comments");
-                if (isHover(coms[0])) {
-                    return;
-                }
-                
-                event.preventDefault();
-                event.stopPropagation();
-                event.returnValue=false;
-                
-                var wheelWait = 200;
-                var time = (new Date()).getTime();
-                var msec = time - wheelLast;
-                wheelLast = time;
-                if (msec < wheelWait) {
-                    return;
-                }
-                
-                var delta = 0;
-                if (!event) 
-                    event = window.event;
-                if (event.wheelDelta) { 
-                    delta = event.wheelDelta/120;
-                } else if (event.detail) { 
-                    delta = -event.detail/3;
-                }
-                    
-                    if(delta<0){
-                        $('.stream-next').click();
-                    }else{
-                        $('.stream-prev').click();
-                    }
-                ratioCalculation(); 
-            }
-        }
-        
-        function isHover(e) {
-            if (!e) return false;
-            return (e.parentElement.querySelector(':hover') === e);
-        }
-        
-        
-        // Code für den Random Button     
-        function prepareButton() {
-            var lastId = localStorage.getItem('pr0latestId');
-            if (!lastId) {
-                if ($('.stream-row a:first').length) {
-                    lastId = parseInt($('.stream-row a:first').attr('id'));
-                }else{
-                    lastId = 137544;
-                }
-                localStorage.setItem('pr0latestId', lastId);
-            }
-            var imageId = Math.floor((Math.random() * lastId) + 1);
-            dingsda = document.getElementById('random');
-            dingsda.setAttribute('href', 'http://pr0gramm.com/new/' + imageId);
-        }
-        
-        
-        // Custom Scrollbar
-        var ssb = {
-            aConts  : [],
-            mouseY : 0,
-            N  : 0,
-            asd : 0,
-            sc : 0,
-            sp : 0,
-            to : 0,
+            var itemNaturalHeight,
+                itemNaturalWidth,
+                content = document.getElementsByClassName("item-image")[0];
             
-            // constructor
-            scrollbar : function (cont_id) {
-                if (cont_id == 'item-comments') { var cont = document.getElementsByClassName(cont_id)[0]; }
-                else if (cont_id == 'page') { var cont = document.getElementById(cont_id);}
-                    else if (cont_id == 'html') { var cont = document.getElementsByTagName('html')[0];}
-                    
-                    // perform initialization
-                    if (! ssb.init()) return false;
+            if($('.item-image').attr('type')=="video/webm"){
+                content.addEventListener( "loadedmetadata", function (e) {                        
+                    itemNaturalHeight = content.videoHeight;
+                    itemNaturalWidth = content.videoWidth; 
+                    zooming(itemNaturalHeight,itemNaturalWidth,content);
+                });
+            } else {
+                itemNaturalHeight = content.naturalHeight;
+                itemNaturalWidth = content.naturalWidth;
+                zooming(itemNaturalHeight,itemNaturalWidth,content);
+            }
+        }
+    }
+    
+    function zooming(itemNaturalHeight,itemNaturalWidth,content){
+        console.log(itemNaturalHeight,"+",itemNaturalWidth);
+        
+        //if picture height is limit when zoomed
+        if (widthitemimage/highitemimage>itemNaturalWidth/itemNaturalHeight){
+            console.log("Begrenzung durch Höhe "+highitemimage);
+            content.style.height=highitemimage+'px';
+            $('.item-image').css('width', 'auto');
+            
+            //if picture width is limit when zoomed
+        }else{
+            console.log("Begrenzung durch Breite "+widthitemimage);
+            content.style.width=widthitemimage+'px';
+            $('.item-image').css('height', 'auto');
+        }
+        if($('.item-image').attr('type')=="video/webm"){
+            //         $('.video-position-bar').style.width=widthitemimage+'px';
+            $(".video-position-bar").css( 'width', $('.item-image').width()+'px');
+        }    
+    }
+    
+    // Image Scroll
+    
+    // Firefox
+    document.addEventListener("DOMMouseScroll", handleWheel, false);
+    // IE9, Chrome, Safari, Opera
+    document.addEventListener("mousewheel", handleWheel, false);
+    // IE 6/7/8
+    if(!document.addEventListener) {
+        document.attachEvent("onmousewheel", handleWheel);
+    }
+    
+    function handleWheel(event) {
+        
+        if ($("div.item-container").length) {
+            var coms = document.getElementsByClassName("item-comments");
+            if (isHover(coms[0])) {
+                return;
+            }
+            
+            event.preventDefault();
+            event.stopPropagation();
+            event.returnValue=false;
+            
+            var wheelWait = 200;
+            var time = (new Date()).getTime();
+            var msec = time - wheelLast;
+            wheelLast = time;
+            if (msec < wheelWait) {
+                return;
+            }
+            
+            var delta = 0;
+            if (!event) 
+                event = window.event;
+            if (event.wheelDelta) { 
+                delta = event.wheelDelta/120;
+            } else if (event.detail) { 
+                delta = -event.detail/3;
+            }
                 
-                var cont_clone = cont.cloneNode(false);
-                cont_clone.style.overflow = "hidden";
-                cont.parentNode.appendChild(cont_clone);
-                cont_clone.appendChild(cont);
-                
-                cont.className = cont.className.replace("fadeInLeft", "");
-                
-                // adding new container into array
-                ssb.aConts[ssb.N++] = cont;
-                
-                cont.sg = false;
-                
-                //creating scrollbar child elements
-                cont.st = this.create_div('ssb_st', cont, cont_clone);
-                cont.sb = this.create_div('ssb_sb', cont, cont_clone);
-                cont.su = this.create_div('ssb_up', cont, cont_clone);
-                cont.sd = this.create_div('ssb_down', cont, cont_clone);
-                
-                // on mouse down processing
-                cont.sb.onmousedown = function (e) {
-                    if (! this.cont.sg) {
-                        if (! e) e = window.event;
-                        
-                        ssb.asd = this.cont;
-                        this.cont.yZ = e.screenY;
-                        this.cont.sZ = cont.scrollTop;
-                        this.cont.sg = true;
-                        
-                        // new class name
-                        this.className = 'ssb_sb ssb_sb_down';
-                    }
-                    return false;
+                if(delta<0){
+                    $('.stream-next').click();
+                }else{
+                    $('.stream-prev').click();
                 }
-                // on mouse down on free track area - move our scroll element too
-                cont.st.onmousedown = function (e) {
+            ratioCalculation(); 
+        }
+    }
+    
+    function isHover(e) {
+        if (!e) return false;
+        return (e.parentElement.querySelector(':hover') === e);
+    }
+    
+    
+    // Code für den Random Button     
+    function prepareButton() {
+        var lastId = localStorage.getItem('pr0latestId');
+        if (!lastId) {
+            if ($('.stream-row a:first').length) {
+                lastId = parseInt($('.stream-row a:first').attr('id'));
+            }else{
+                lastId = 137544;
+            }
+            localStorage.setItem('pr0latestId', lastId);
+        }
+        var imageId = Math.floor((Math.random() * lastId) + 1);
+        dingsda = document.getElementById('random');
+        dingsda.setAttribute('href', 'http://pr0gramm.com/new/' + imageId);
+    }
+    
+    
+    // Custom Scrollbar
+    var ssb = {
+        aConts  : [],
+        mouseY : 0,
+        N  : 0,
+        asd : 0,
+        sc : 0,
+        sp : 0,
+        to : 0,
+        
+        // constructor
+        scrollbar : function (cont_id) {
+            if (cont_id == 'item-comments') { var cont = document.getElementsByClassName(cont_id)[0]; }
+            else if (cont_id == 'page') { var cont = document.getElementById(cont_id);}
+                else if (cont_id == 'html') { var cont = document.getElementsByTagName('html')[0];}
+                
+                // perform initialization
+                if (! ssb.init()) return false;
+            
+            var cont_clone = cont.cloneNode(false);
+            cont_clone.style.overflow = "hidden";
+            cont.parentNode.appendChild(cont_clone);
+            cont_clone.appendChild(cont);
+            
+            cont.className = cont.className.replace("fadeInLeft", "");
+            
+            // adding new container into array
+            ssb.aConts[ssb.N++] = cont;
+            
+            cont.sg = false;
+            
+            //creating scrollbar child elements
+            cont.st = this.create_div('ssb_st', cont, cont_clone);
+            cont.sb = this.create_div('ssb_sb', cont, cont_clone);
+            cont.su = this.create_div('ssb_up', cont, cont_clone);
+            cont.sd = this.create_div('ssb_down', cont, cont_clone);
+            
+            // on mouse down processing
+            cont.sb.onmousedown = function (e) {
+                if (! this.cont.sg) {
                     if (! e) e = window.event;
+                    
                     ssb.asd = this.cont;
+                    this.cont.yZ = e.screenY;
+                    this.cont.sZ = cont.scrollTop;
+                    this.cont.sg = true;
                     
-                    ssb.mouseY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-                    for (var o = this.cont, y = 0; o != null; o = o.offsetParent) y += o.offsetTop;
-                    this.cont.scrollTop = (ssb.mouseY - y - (this.cont.ratio * this.cont.offsetHeight / 2) - this.cont.sw) / this.cont.ratio;
-                    this.cont.sb.onmousedown(e);
-                }
-                
-                // onmousedown events
-                cont.su.onmousedown = cont.su.ondblclick = function (e) { ssb.mousedown(this, -1); return false; }
-                cont.sd.onmousedown = cont.sd.ondblclick = function (e) { ssb.mousedown(this,  1); return false; }
-                
-                //onmouseout events
-                cont.su.onmouseout = cont.su.onmouseup = ssb.clear;
-                cont.sd.onmouseout = cont.sd.onmouseup = ssb.clear;
-                
-                // on mouse over - apply custom class name: ssb_sb_over
-                cont.sb.onmouseover = function (e) {
-                    if (! this.cont.sg) this.className = 'ssb_sb ssb_sb_over';
-                    return false;
-                }
-                
-                // on mouse out - revert back our usual class name 'ssb_sb'
-                cont.sb.onmouseout  = function (e) {
-                    if (! this.cont.sg) this.className = 'ssb_sb';
-                    return false;
-                }
-                
-                // onscroll - change positions of scroll element
-                cont.ssb_onscroll = function () {
-                    //var coms = document.getElementsByClassName("comments")[0];
-                    
-                    //if (isHover(coms[0])) {
-                    if (cont_id == 'item-comments') {
-                        this.ratio = this.offsetHeight / ($('.comments').outerHeight(true) + 128);//187+33
-                    }else{
-                        this.ratio = ($(window).height()-52) / ($('.comments').outerHeight(true) + 187 + 53); //#main-view
-                        //this.st.style.height =  $('#main-view').height() + 'px';
-                        //this.sb.style.height = Math.ceil(this.ratio * 666) + 'px';
-                    }
-                    this.sb.style.top = Math.floor(this.scrollTop * this.ratio) + 'px';
-                    //}
-                }
-                
-                // scrollbar width
-                cont.sw = 11;
-                
-                // start scrolling
-                cont.ssb_onscroll();
-                ssb.refresh();
-                
-                // binding own onscroll event
-                cont.onscroll = cont.ssb_onscroll;
-                var conte = document.getElementById('page');
-                
-                
-                
-                //elem.onscroll = cont.ssb_onscroll;
-                return cont;
-            },
-            
-            // initialization
-            init : function () {
-                if (window.oper || (! window.addEventListener && ! window.attachEvent)) { return false; }
-                
-                // temp inner function for event registration
-                function addEvent (o, e, f) {
-                    if (window.addEventListener) { o.addEventListener(e, f, false); ssb.w3c = true; return true; }
-                    if (window.attachEvent) return o.attachEvent('on' + e, f);
-                    return false;
-                }
-                
-                // binding events
-                addEvent(window.document, 'mousemove', ssb.onmousemove);
-                addEvent(window.document, 'mouseup', ssb.onmouseup);
-                addEvent(window, 'resize', ssb.refresh);
-                return true;
-            },
-            
-            // create and append div finc
-            create_div : function(c, cont, cont_clone) {
-                var o = document.createElement('div');
-                o.cont = cont;
-                o.className = c;
-                cont_clone.appendChild(o);
-                return o;
-            },
-            // do clear of controls
-            clear : function () {
-                clearTimeout(ssb.to);
-                ssb.sc = 0;
-                return false;
-            },
-            // refresh scrollbar
-            refresh : function () {
-                for (var i = 0, N = ssb.N; i < N; i++) {
-                    var o = ssb.aConts[i];
-                    o.ssb_onscroll();
-                    o.sb.style.width = o.su.style.width = o.su.style.height = o.sd.style.width = o.sd.style.height = o.sw + 'px';
-                    o.st.style.width = (o.sw + 6) + 'px';
-                    o.st.style.height =  $(window).height() - 51 + 'px'; //'#main-view'
-                    
-                    o.sb.style.height = Math.ceil(o.ratio * 666) + 'px';
-                    o.sb.style.right = '3px';
-                }
-            },
-            // arrow scrolling
-            arrow_scroll : function () {
-                if (ssb.sc != 0) {
-                    ssb.asd.scrollTop += 6 * ssb.sc / ssb.asd.ratio;
-                    ssb.to = setTimeout(ssb.arrow_scroll, ssb.sp);
-                    ssb.sp = 32;
-                }
-            },
-            
-            
-            // scroll on mouse down
-            mousedown : function (o, s) {
-                if (ssb.sc == 0) {
                     // new class name
-                    o.cont.sb.className = 'ssb_sb ssb_sb_down';
-                    ssb.asd = o.cont;
-                    ssb.sc = s;
-                    ssb.sp = 400;
-                    ssb.arrow_scroll();
+                    this.className = 'ssb_sb ssb_sb_down';
                 }
-            },
-            // on mouseMove binded event
-            onmousemove : function(e) {
-                if (! e) e = window.event;
-                // get vertical mouse position
-                ssb.mouseY = e.screenY;
-                if (ssb.asd.sg) ssb.asd.scrollTop = ssb.asd.sZ + (ssb.mouseY - ssb.asd.yZ) / ssb.asd.ratio;
-            },
-            // on mouseUp binded event
-            onmouseup : function (e) {
-                if (! e) e = window.event;
-                var tg = (e.target) ? e.target : e.srcElement;
-                if (ssb.asd && document.releaseCapture) ssb.asd.releaseCapture();
-                
-                // new class name
-                if (ssb.asd) ssb.asd.sb.className = (tg.className.indexOf('scrollbar') > 0) ? 'ssb_sb ssb_sb_over' : 'ssb_sb';
-                document.onselectstart = '';
-                ssb.clear();
-                ssb.asd.sg = false;
+                return false;
             }
+            // on mouse down on free track area - move our scroll element too
+            cont.st.onmousedown = function (e) {
+                if (! e) e = window.event;
+                ssb.asd = this.cont;
+                
+                ssb.mouseY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+                for (var o = this.cont, y = 0; o != null; o = o.offsetParent) y += o.offsetTop;
+                this.cont.scrollTop = (ssb.mouseY - y - (this.cont.ratio * this.cont.offsetHeight / 2) - this.cont.sw) / this.cont.ratio;
+                this.cont.sb.onmousedown(e);
+            }
+            
+            // onmousedown events
+            cont.su.onmousedown = cont.su.ondblclick = function (e) { ssb.mousedown(this, -1); return false; }
+            cont.sd.onmousedown = cont.sd.ondblclick = function (e) { ssb.mousedown(this,  1); return false; }
+            
+            //onmouseout events
+            cont.su.onmouseout = cont.su.onmouseup = ssb.clear;
+            cont.sd.onmouseout = cont.sd.onmouseup = ssb.clear;
+            
+            // on mouse over - apply custom class name: ssb_sb_over
+            cont.sb.onmouseover = function (e) {
+                if (! this.cont.sg) this.className = 'ssb_sb ssb_sb_over';
+                return false;
+            }
+            
+            // on mouse out - revert back our usual class name 'ssb_sb'
+            cont.sb.onmouseout  = function (e) {
+                if (! this.cont.sg) this.className = 'ssb_sb';
+                return false;
+            }
+            
+            // onscroll - change positions of scroll element
+            cont.ssb_onscroll = function () {
+                //var coms = document.getElementsByClassName("comments")[0];
+                
+                //if (isHover(coms[0])) {
+                if (cont_id == 'item-comments') {
+                    this.ratio = this.offsetHeight / ($('.comments').outerHeight(true) + 128);//187+33
+                }else{
+                    this.ratio = ($(window).height()-52) / ($('.comments').outerHeight(true) + 187 + 53); //#main-view
+                    //this.st.style.height =  $('#main-view').height() + 'px';
+                    //this.sb.style.height = Math.ceil(this.ratio * 666) + 'px';
+                }
+                this.sb.style.top = Math.floor(this.scrollTop * this.ratio) + 'px';
+                //}
+            }
+            
+            // scrollbar width
+            cont.sw = 11;
+            
+            // start scrolling
+            cont.ssb_onscroll();
+            ssb.refresh();
+            
+            // binding own onscroll event
+            cont.onscroll = cont.ssb_onscroll;
+            var conte = document.getElementById('page');
+            
+            
+            
+            //elem.onscroll = cont.ssb_onscroll;
+            return cont;
+        },
+        
+        // initialization
+        init : function () {
+            if (window.oper || (! window.addEventListener && ! window.attachEvent)) { return false; }
+            
+            // temp inner function for event registration
+            function addEvent (o, e, f) {
+                if (window.addEventListener) { o.addEventListener(e, f, false); ssb.w3c = true; return true; }
+                if (window.attachEvent) return o.attachEvent('on' + e, f);
+                return false;
+            }
+            
+            // binding events
+            addEvent(window.document, 'mousemove', ssb.onmousemove);
+            addEvent(window.document, 'mouseup', ssb.onmouseup);
+            addEvent(window, 'resize', ssb.refresh);
+            return true;
+        },
+        
+        // create and append div finc
+        create_div : function(c, cont, cont_clone) {
+            var o = document.createElement('div');
+            o.cont = cont;
+            o.className = c;
+            cont_clone.appendChild(o);
+            return o;
+        },
+        // do clear of controls
+        clear : function () {
+            clearTimeout(ssb.to);
+            ssb.sc = 0;
+            return false;
+        },
+        // refresh scrollbar
+        refresh : function () {
+            for (var i = 0, N = ssb.N; i < N; i++) {
+                var o = ssb.aConts[i];
+                o.ssb_onscroll();
+                o.sb.style.width = o.su.style.width = o.su.style.height = o.sd.style.width = o.sd.style.height = o.sw + 'px';
+                o.st.style.width = (o.sw + 6) + 'px';
+                o.st.style.height =  $(window).height() - 51 + 'px'; //'#main-view'
+                
+                o.sb.style.height = Math.ceil(o.ratio * 666) + 'px';
+                o.sb.style.right = '3px';
+            }
+        },
+        // arrow scrolling
+        arrow_scroll : function () {
+            if (ssb.sc != 0) {
+                ssb.asd.scrollTop += 6 * ssb.sc / ssb.asd.ratio;
+                ssb.to = setTimeout(ssb.arrow_scroll, ssb.sp);
+                ssb.sp = 32;
+            }
+        },
+        
+        
+        // scroll on mouse down
+        mousedown : function (o, s) {
+            if (ssb.sc == 0) {
+                // new class name
+                o.cont.sb.className = 'ssb_sb ssb_sb_down';
+                ssb.asd = o.cont;
+                ssb.sc = s;
+                ssb.sp = 400;
+                ssb.arrow_scroll();
+            }
+        },
+        // on mouseMove binded event
+        onmousemove : function(e) {
+            if (! e) e = window.event;
+            // get vertical mouse position
+            ssb.mouseY = e.screenY;
+            if (ssb.asd.sg) ssb.asd.scrollTop = ssb.asd.sZ + (ssb.mouseY - ssb.asd.yZ) / ssb.asd.ratio;
+        },
+        // on mouseUp binded event
+        onmouseup : function (e) {
+            if (! e) e = window.event;
+            var tg = (e.target) ? e.target : e.srcElement;
+            if (ssb.asd && document.releaseCapture) ssb.asd.releaseCapture();
+            
+            // new class name
+            if (ssb.asd) ssb.asd.sb.className = (tg.className.indexOf('scrollbar') > 0) ? 'ssb_sb ssb_sb_over' : 'ssb_sb';
+            document.onselectstart = '';
+            ssb.clear();
+            ssb.asd.sg = false;
         }
-        
-        
-        /*
+    }
+    
+    
+    /*
 function getID() {
 	var url = window.location.pathname;
 	var id = url.match('([0-9]{2,7})');
@@ -1004,6 +1014,6 @@ function reloadcomments(id) {
 		});
 }
 */
-        
-        
-        })();
+    
+    
+    })();
