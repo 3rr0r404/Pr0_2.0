@@ -2,12 +2,12 @@
 
 // @name        >_ Pr0gramm Big Picture
 // @namespace   https://github.com/3rr0r404/Pr0_2.0
-// @author		Error404
+// @author	Error404
 // @description Imr0ve das Pr0 2.0
 // @include     http://pr0gramm.com/*
 // @version     2.5.3
 // @grant       none
-// @require		http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
+// @require	http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
 // ==/UserScript==
 
