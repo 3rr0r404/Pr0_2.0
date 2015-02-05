@@ -5,7 +5,7 @@
 // @author		Error404
 // @description Imr0ve das Pr0 2.0
 // @include     http://pr0gramm.com/*
-// @version     2.5.2
+// @version     2.5.3
 // @grant       none
 // @require		http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
@@ -229,7 +229,7 @@
         '@media screen and (max-width:1400px){ div#head {margin: 0 0 0 0 !important;} '+			
         '.item-comments {width: 24% !important;}} '+
         '#head { padding-left: 0px !important; z-index:200; } .stream-next, .stream-prev { z-index:122; top: auto !important; padding: 0 !important; bottom: 30% !important;} '+
-        '.item-comments { position: fixed !important; top: 0; left: 0; width: 300px;  height: 100vh;  max-height: 100vh; overflow-y: auto; overflow-x: hidden;}'+
+        '.item-comments { position: absolute !important; top: 0; left: 0; width: 300px;  height: 100vh;  max-height: 100vh; overflow-y: auto; overflow-x: hidden;}'+
         '.item-comments textarea.comment { resize: none;}'+
         'div.comment-box > div.comment-box { padding: 0 0 0 6px;}'+			
         'div.item-comments > form.comment-form { padding-right: 20px;}'+	
@@ -266,7 +266,7 @@
         'body.two-sidebars div#head, body.two-sidebars div#page { padding: 0 !important;}'+
         '#head { width: 100% !important }'+
         'div.comment-vote { left: 5px !important;}'+
-        '.item-comments { border-right: 3px solid rgb(42, 46, 49); background: none repeat scroll 0% 0% rgba(23, 23, 24, 0.89); overflow-x:hidden; top: 51px !important; width: 352px !important; height: '+high+'px !important;}' +
+        '.item-comments { border-right: 3px solid rgb(42, 46, 49); background: none repeat scroll 0% 0% rgba(23, 23, 24, 0.89); overflow-x:hidden; width: 352px !important; height: '+high+'px !important;}' +
         '.item-container-content { padding-left: 352px !important; display: table-cell; vertical-align: middle;}'+
         'div.item-container { z-index: 2; background: rgba(0, 0, 0, 0.9) !important; position: fixed !important; display: table; height: '+highcontainer+'px !important; width: 100% !important; left: 0px !important; padding-bottom: 0px !important;}'+
         'div.stream-row { clear: none !important; }'+
