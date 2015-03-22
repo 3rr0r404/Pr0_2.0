@@ -328,7 +328,7 @@
         'div.item-vote span.score {top: -3px}'+
         
         '#filter-menu { left: 318px !important;}'+
-        '#footer-links {line-height: 1.6 !important; text-align: center !important; top: 7px; left: auto !important; right: '+rightSpacingForFooterLinks+'px !important; height: 20px; width: 130px !important; bottom: 0px !important; margin: 0 !important}'+
+        '#footer-links {line-height: 1.6 !important; text-align: center !important; top: 7px; left: auto !important; right: '+rightSpacingForFooterLinks+'px !important; height: 20px; width: 129px !important; bottom: 0px !important; margin: 0 !important}'+
         '#footer-links a { color: rgb(238, 77, 46);}'+
         '#footer-links div:nth-child(2n) a { color: rgb(155, 155, 155);}'+
         '#footer-links div:nth-child(2n) a:hover{color:#F5F7F6;}'+
