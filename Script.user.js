@@ -5,7 +5,7 @@
 // @author	Error404
 // @description Imr0ve das Pr0 2.0
 // @include     http://pr0gramm.com/*
-// @version     2.5.5
+// @version     2.5.6
 // @grant       none
 // @require	http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
@@ -231,7 +231,7 @@
     
     /****/// CSS
     var css = '#upload-form input[type="submit"] { position:relative; top: 420px; left: 350px; }'+
-        '.tags { padding-left:3px; width:100%;} div.item-tags { padding: 4px 0 8px 14% !important;} div.tagsinput { position:absolute; } input[value="Tags speichern"],input[value="Abbrechen"] { float:right; }'+
+        '.tags { padding-left:180px; width:100% !important;} div.item-tags { padding: 4px 0 8px 14% !important;} div.tagsinput { position:absolute; height: 28px} input[value="Tags speichern"],input[value="Abbrechen"] { float:right; }'+
         '.comments-large-rectangle { overflow: hidden; height:auto; position:px; width:292px; right:0;top:0; position:relative; } .comments-large-rectangle > a > img { width: 280px; } '+
         '#footer-links {z-index:200;} div.item-tags { padding: 4px 0 8px 20%;} div.item-info { text-align:center;margin-top: 0px;} '+
         '#zahlbreite { color: #FFFFFF; margin: 27px 0 0 15px; float: left;} div.stream-row { clear:right; }'+
@@ -248,7 +248,7 @@
         '#slider { float: left; clear: left; width: 300px; margin: 30px 15px 5px; }#slider .ui-slider-range { background: #EE4D2E; } #slider .ui-slider-handle { border-color: #EE4D2E; }'+
         '@media screen and (max-width:1400px){ div#head {margin: 0 0 0 0 !important;} '+			
         '.item-comments {width: 23% !important;}} '+
-        'div.item-details {padding: 4px 0px 8px 0px;}'+
+        'div.item-details {padding: 0px 0px 8px 0px;}'+
         
         '#head { padding-left: 0px !important; z-index:200; }'+
         '.stream-next, .stream-prev { padding: 200px 0 0 !important; margin: 200px 0px 0px !important; color: rgba(245, 247, 246, 0.29) !important; font-size: 38px !important; }'+
@@ -284,7 +284,7 @@
         'div.comment-foot { max-width: none;}'+
         '.comments-large-rectangle { position:absolute; width: 0px;}'+
         '.side-wide-skyscraper { display:none;}'+
-        'form.tag-form { margin: 8px 70px 0px; width: 640px;}'+
+        'form.tag-form { margin: 0px auto; width: 640px; bottom: 120px; position: relative; border: 2px outset buttonface; height: 32px;}'+
         '.sorter, .sorter a { color: rgba(155, 155, 155, 1); font-size: 0.94em;}'+
         '#com-new { padding-left: 90px} #com-new, #com-top {  margin: 0px 3px;}'+
         '#com-new.active, #com-new:hover { color: #EE4D2E;} #com-top.active, #com-top:hover { color: #EE4D2E;}'+
