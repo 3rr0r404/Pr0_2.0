@@ -5,7 +5,7 @@
 // @author	Error404
 // @description Imr0ve das Pr0 2.0
 // @include     http://pr0gramm.com/*
-// @version     2.5.6
+// @version     2.6.0
 // @grant       none
 // @require	http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js
 // @updateURL   https://github.com/3rr0r404/Pr0_2.0/raw/master/Script.user.js
@@ -13,9 +13,9 @@
 
 (function() {
     //¯\_(ツ)_/¯ 
-    
-    var high, highitemimage, highcontainer, widthitemimage, rightSpacingForFooterLinks;
-    
+
+    var highitemimage, widthitemimage, itemNaturalHeight, itemNaturalWidth, content, rightSpacingForFooterLinks;
+
     function waitForPage(){
         if(typeof p !== "undefined"){
             // Verhindert Gewackel beim Scrollen
@@ -41,7 +41,7 @@
                         if (this.$itemContainer.offset().top < $item.offset().top) {
                             scrollTarget -= this.$itemContainer.innerHeight() + this.rowMargin * 2;
                         }
-                        
+
                         if (animate) {
                             this.$itemContainer.find('.gpt').remove();
                             this.$itemContainer.slideUp('fast', function() {
@@ -81,7 +81,7 @@
                 }
                 this.currentItemId = id;
             }
-            
+
             p.View.Stream.Main.prototype.loaded = function(items, position, error) {
                 this.itemsPerRow = p.mainView.thumbsPerRow;
                 this.$container.find('.spinner').remove();
@@ -94,9 +94,9 @@
                     } else if (!this.hasItems) {
                         msg = 'Nichts gefunden &#175;\\_(&#12484;)_/&#175;';
                     }
-                        if (msg) {
-                            this.$container.html('<h2 class="main-message">' + msg + '</h2>');
-                        }
+                    if (msg) {
+                        this.$container.html('<h2 class="main-message">' + msg + '</h2>');
+                    }
                     return;
                 }
                 if (position == p.Stream.POSITION.PREPEND) {
@@ -131,34 +131,34 @@
                     var html = this.buildItemRows(items, fill, items.length, position);
                     this.$streamContainer.append(this.prepareThumbsForInsertion(html));
                 }
-                    if (this.jumpToItem) {
-                        var target = $('#item-' + this.jumpToItem);
-                        if (target.length) {
-                            $(document).scrollTop(target.offset().top - CONFIG.HEADER_HEIGHT);
-                            this.showItem(target);
-                        }
-                        this.jumpToItem = null;
+                if (this.jumpToItem) {
+                    var target = $('#item-' + this.jumpToItem);
+                    if (target.length) {
+                        $(document).scrollTop(target.offset().top - CONFIG.HEADER_HEIGHT);
+                        this.showItem(target);
                     }
+                    this.jumpToItem = null;
+                }
                 this.loadInProgress = false;
                 this.hasItems = true;
             }
-            
-            
+
+
             p.View.Stream.Item.prototype.template = '<div class="item-pointer"> </div> <?js if(localStorage.getItem("commentview") == "wide") { ?> <div class="item-container-content wide"> <?js }else{ ?> <div class="item-container-content"> <?js } ?> <div class="item-image-wrapper"> <?js if( item.video ) { ?> <?js if( canPlayWebM ) { ?> <video class="item-image" src="{item.image}" type="video/webm" autoplay loop></video> <div class="video-position-bar"> <div class="video-position-bar-background"> <div class="video-position"></div> </div> </div> <?js } else { ?> <canvas class="item-image"></canvas> <?js } ?> <?js } else { ?> <img class="item-image" src="{item.image}"/> <?js if(item.fullsize) { ?> <a href="{item.fullsize}" target="_blank" class="item-fullsize-link">+</a> <?js } ?> <?js } ?> <div class="stream-prev pict">&lt;</div> <div class="stream-next pict">&gt;</div> </div> <div class="item-info"> <div class="item-vote{p.voteClass(item.vote)}"> <span class="pict vote-up">+</span> <span class="pict vote-down">-</span> <span class="score" title="{item.up} up, {item.down} down"><?js print(item.up - item.down)?></span> </div> <?js if( item.user != p.user.name ) {?> <?js if(localStorage.getItem("commentview") == "wide") { ?> <span class="pict wide vote-fav{p.favClass(item.vote)}">*</span> <?js }else{ ?> <span class="pict vote-fav{p.favClass(item.vote)}">*</span> <?js } ?> <?js } ?> <div class="item-details"> <a class="time" title="{item.time.readableTime()}" href="/new/{item.id}">{item.time.relativeTime(true)}</a> <span class="time">von</span> <a href="#user/{item.user}" class="user um{item.mark}">{item.user}</a> <span class="item-source"> <?js if( item.source ) {?> <span class="pict">s</span>&nbsp;<a href="{{item.source}}" target="_blank">{{item.source.hostName()}}</a> <?js } else { ?> <span class="pict">s</span>upload</span> <?js } ?> </span> <?js if( !item.video ) {?> <span class="item-google-search"> <span class="pict">g</span>&nbsp;<a href="https://www.google.com/searchbyimage?hl=en&amp;safe=off&amp;site=search&amp;image_url={item.image}" target="_blank"> Bild googeln </a> </span> <?js } ?> <?js if( p.user.admin ) { ?> [<span class="action" id="item-delete" data-id="{item.id}">del</span>] [<a href="/new/phash.{item.id}.12">phash</a>] <?js } ?> <span class="flags flags-{item.flags}">{p.Stream.FLAG_NAME[item.flags]}</span></div> <div class="item-tags"></div> </div> <div class="divider-full-banner gpt" id="gpt-divider-banner" data-size="468x60" data-slot="pr0gramm-banner"></div> <div class="divider-large-rectangle gpt" id="gpt-divider-rectangle" data-size="336x280" data-slot="pr0gramm-rectangle"></div> <?js if(localStorage.getItem("commentview") == "wide") { ?> <div class="item-comments wide"></div> <?js }else{ ?> <div class="item-comments"></div> <?js } ?> </div> ';
-            
+
             p.opClass = function(currentOp, currentUser) {
                 if(!currentOp || !currentUser)
                     return "";
                 return currentOp == currentUser ? " opuser" : "";
             };
-            
+
             // Comments Template	
             p.View.Stream.Comments.prototype.template = '<div class="comments-head"> <span class="pict">c</span> {"Kommentar".inflect(commentCount)} <span class="commentview" title="Erweiterte Kommentaransicht"></span></div> <div class="comments-large-rectangle gpt" id="gpt-rectangle-comments" data-size="336x280" data-slot="pr0gramm-rectangle"></div> <form class="comment-form" method="post"> <textarea class="comment" name="comment" required placeholder="Kommentar schreiben..."></textarea> <input type="hidden" name="parentId" value="0"/> <input type="hidden" name="itemId" value="{params.id}"/> <div> <input type="submit" value="Abschicken"/> <input type="button" value="Abbrechen" class="cancel"/><?js if(commentCount > 0) { ?> <span class="sorter"><a id="com-new" href="">[ Neuste</a> | <a id="com-top" href="">Top ]</a></span> <?js } ?> </div> </form> <form class="comment-edit-form" method="post"> <textarea class="comment" required name="comment"></textarea> <input type="hidden" name="commentId" value="0"/> <div> <input type="submit" value="Abschicken"/> <input type="button" value="Abbrechen" class="cancel"/> </div> </form> <div class="comments"> <?js var recurseComments = function( comments, level, farbe ) { ?> <div class="comment-box"> <?js for( var i = 0; i < comments.length; i++ ) { var c = comments[i]; ?> <div class="comment{p.voteClass(c.vote)}{p.opClass(itemOp,c.name)} commentfarbe{farbe}" id="comment{c.id}"> <div class="comment-vote"> <span class="pict vote-up">+</span> <span class="pict vote-down">-</span> </div> <div class="comment-content"> {c.content.format()} </div> <div class="comment-foot"> <a href="#user/{c.name}" class="user um{c.mark}">{c.name}</a> <span class="score" title="{c.up} up, {c.down} down">{"Punkt".inflect(c.score)}</span> <a href="#{tab}/{itemId}:comment{c.id}" class="time permalink" title="{c.createdReadable}">{c.createdRelative}</a> <?js if( level < CONFIG.COMMENTS_MAX_LEVELS && !linearComments ) {?> <a href="#{tab}/{itemId}:comment{c.id}" class="comment-reply-link action"><span class="pict">r</span> antworten</a> <?js } ?> <?js if( /*c.user == p.user.name ||*/ p.user.admin ) {?> [ <span class="comment-delete action">del</span> / <a href="#{tab}/{itemId}:comment{c.id}" class="comment-edit-link action">edit</a> ] <?js } ?> </div> </div> <?js if( c.children.length ) { if(farbe==5) farbe = 0; recurseComments(c.children, level+1, farbe+1); } ?> <?js } ?> </div> <?js }; ?> <?js recurseComments(comments, 1, 1); ?> </div> ';
-            
+
             p.View.Stream.Comments.SortTime = function(a, b) {
                 return (b.created - a.created);
             }
-            
+
             p.View.Stream.Comments.prototype.loaded = function(item) {
                 item.id = (item.id || this.data.itemId);
                 if (localStorage.getItem('comorder')) {
@@ -167,11 +167,11 @@
                     }else if (localStorage.getItem('comorder') == 'top') {
                         this.data.linearComments = (item.id <= CONFIG.LAST_LINEAR_COMMENTS_ITEM);
                     }
-                        } else{
-                            localStorage.setItem('comorder', 'top');
-                            this.data.linearComments = (item.id <= CONFIG.LAST_LINEAR_COMMENTS_ITEM);
-                        }
-                
+                } else{
+                    localStorage.setItem('comorder', 'top');
+                    this.data.linearComments = (item.id <= CONFIG.LAST_LINEAR_COMMENTS_ITEM);
+                }
+
                 if (item.commentId) {
                     p.user.voteCache.votes.comments[item.commentId] = 1;
                     this.data.params.comment = 'comment' + item.commentId;
@@ -184,7 +184,7 @@
                 this.data.itemOp = item.user || null;
                 this.render();
             }
-            
+
             // Remove span class sorter in comments
             p.View.Stream.Comments.prototype.showReplyForm = function(ev) {
                 if (!p.mainView.requireLogin()) {
@@ -203,13 +203,11 @@
                 $form.find('textarea').val('').addClass('reply').focus();
                 return false;
             }
-            
-            high = $(window).height()-51;
+
             highitemimage = $(window).height()-150;
-            highcontainer = $(window).height()-52;
             widthitemimage = $(window).width()-354;
             rightSpacingForFooterLinks = $('.user-info.user-only').width()+55;
-                        
+
         }else{
             console.log('p undefined');
             setInterval(function(){
@@ -218,24 +216,24 @@
         }
     }
     waitForPage();
-    
+
     var spacepressed = false;
     var wheelLast = 0;
     var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-    
+
     //getPageResolution();
-    
+
     // Random Button und Bereits gesehen Button einfügen
     var valueseen = localStorage.getItem('alreadyseen')=='on'? 'active': '';
     $('#head-menu').append('<a class="link '+valueseen+'" title="bereits gesehen-Feature aktivieren\/deaktivieren" id="brille" href=""></a><a class="link" id="random" title="Random Upload aufrufen" href=""></a>');
-    
+
     /****/// CSS
     var css = '#upload-form input[type="submit"] { position:relative; top: 420px; left: 350px; }'+
         '.tags { padding-left:180px; width:100% !important;} div.item-tags { padding: 4px 0 8px 14% !important;} div.tagsinput { position:absolute; height: 28px} input[value="Tags speichern"],input[value="Abbrechen"] { float:right; }'+
         '.comments-large-rectangle { overflow: hidden; height:auto; position:px; width:292px; right:0;top:0; position:relative; } .comments-large-rectangle > a > img { width: 280px; } '+
         '#footer-links {z-index:200;} div.item-tags { padding: 4px 0 8px 20%;} div.item-info { text-align:center;margin-top: 0px;} '+
         '#zahlbreite { color: #FFFFFF; margin: 27px 0 0 15px; float: left;} div.stream-row { clear:right; }'+
-        
+
         '.ui-widget-content {border: 1px solid #AAAAAA;color: #222222;}'+
         '.ui-slider { position: relative; text-align: left;}'+
         '.ui-slider-horizontal { height: 0.8em;}'+
@@ -249,7 +247,7 @@
         '@media screen and (max-width:1400px){ div#head {margin: 0 0 0 0 !important;} '+			
         '.item-comments {width: 23% !important;}} '+
         'div.item-details {padding: 0px 0px 8px 0px;}'+
-        
+
         '#head { padding-left: 0px !important; z-index:200; }'+
         '.stream-next, .stream-prev { padding: 200px 0 0 !important; margin: 200px 0px 0px !important; color: rgba(245, 247, 246, 0.29) !important; font-size: 38px !important; }'+
         '.stream-next:hover, .stream-prev:hover { color: rgba(238, 77, 46, 1.0) !important; }'+
@@ -257,8 +255,8 @@
         '.item-comments { -webkit-transform: translateZ(0); position: fixed !important; top: 0; left: 0; width: 300px;  height: 100vh;  max-height: 100vh; overflow-y: auto; overflow-x: hidden;}'+
         '.item-comments textarea.comment { resize: none; box-shadow: 0 0 0 2px rgba(72, 72, 72, 0.36);}'+
         'div.comment-box > div.comment-box { padding: 0 0 0 14px; background: none repeat scroll 0px 0px rgba(0, 0, 0, 0.1) !important; border-left: 1px solid #292929;}'+		
-        
-        
+
+
         '@-webkit-keyframes fadeInLeft { 0% { opacity: 1; -webkit-transform: translateX(-400px);} 100% { opacity: 1; -webkit-transform: translateX(0); } }'+
         '@keyframes fadeInLeft { 0% { opacity: 1; transform: translateX(-400px);} 100% { opacity: 1; transform: translateX(0); } }'+
         '.fadeInLeft { -webkit-animation-name: fadeInLeft; animation-name: fadeInLeft;}'+
@@ -270,7 +268,7 @@
         //'div.item-container-content.wide .item-image-wrapper { max-width: 90% !important;}'+
         'div.item-container-content.wide .item-image { max-width: 100% !important;}'+
         //'div.item-container-content.wide .stream-prev { left: 40% !important;}'+
-        
+
         'span.vote-fav.wide { left: 130px !important;}'+
         '.commentfarbe1 { border-left: 2px solid rgb(51, 52, 150) !important;}'+
         '.commentfarbe2 { border-left: 2px solid rgba(48, 221, 22, 0.72) !important;}'+
@@ -278,7 +276,7 @@
         '.commentfarbe4 { border-left: 2px solid rgba(245, 0, 0, 0.77) !important;}'+
         '.commentfarbe5 { border-left: 2px solid rgba(167, 22, 221, 0.72) !important;}'+
         '.opuser .user:before { content: \'OP\'; color: #FFF; padding: 1px 3px; vertical-align: baseline; font-weight: bold; border-radius: 0.25em; background-color: rgb(238, 77, 46); margin-right: 5px; }'+
-        
+
         'div.comments-head { background: rgba(42, 46, 49, 0.62);}'+
         'div.comment { border: 1px solid rgba(10, 10, 11, 0.46); background: rgba(26, 27, 30, 0.7); border-radius: 2px;}'+
         'div.comment-foot { max-width: none;}'+
@@ -293,13 +291,13 @@
         '#head-content { opacity: 0.97; background-color: #040405 !important; border-bottom: 2px solid #232326;}'+
         '.pane, .pane-head, .tab-bar, .user-stats, .in-pane { width: 792px; margin: 0 auto !important;}'+
         '#random { float: right; margin-top: 0px; margin-left: 10px; height: 16px; width: 16px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAARCQAAEQkAGJrNK4AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEfSURBVHjazNK/K8VRHMbx1/dehIVbSpcJJWVguFKMRmUxGCibP8Ji8g8Y7mIxmxgYLEpXGUgokx+DhQhd9+tH0rUc+k7X9WPwWU6ncz7v8zyf80TlctlvK+UP6v9Aah4e4+R+BgNIV+h5wz7yn5DE4SzmvyGgFXMQFeMSjGH1B04msPwxk2bE3wQ8o+ljsBFekMNKlYA19KOIdFSMSwUMYxuT2ME1znATXqxHBh3IYgiLGMFuDQYDfRjj6EEvWoLN2vAjdwF+jKkAgFxUjEt9WEcbnnCB7gpWToOaRlxhNIUDbIQLDV8AoCsAYBN7qUSAflJvybDl0R5UdFbRfI4TLCQhR9hCAUtfKIswHdbDZGIzuMUr6qpQch+ClsXl+wCQR0NjActcNgAAAABJRU5ErkJggg==);} '+
-        
+
         '#random:hover { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAARCQAAEQkAGJrNK4AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEaSURBVHjazNO/K8RxHMfxx/fuCAtXSseEklLHcKJuNOosykLZbP4BA5N/wHCLxZ9gYbAoPzYSyuTHYCE6UkK6zvK5+k7uDoPX8unz4/38vF593p+oUqn4rRL+QP8HEpUK2fh8AaNIflNTxgmK1YVUbHMJqw0Y6MJKPM5UgwBYxkwc0oHXBiHvaK9CInwgh806AVsYwQuSKewjj0PMYhwPuMZjuLEFafQig0WsYwJHKYwFeh7TGMQQOkPMpvAiTwF+gbkAgFxUKmSHsY1uvOEWA99EuQpu2nCPyQROsRMOtNYAQH8AwC6OE7EG+onK8WYroie46Kuj+AaXWItDzrGHA2zUcBZhPoxn8b+TRgmfaK7DyXNotAzuvgYAbyA4nkq8OzEAAAAASUVORK5CYII=); cursor: pointer;}'+
         '#brille { float: right; margin-left: 10px; margin-top: 2px; height: 17px; width: 17px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAABJ0AAASdAHeZh94AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEJSURBVHjanNStSwRBGMfxzy4LokGLYNBgsYhNQTAaNIhBMFhNxgtaNZiEKxZFDCarcMEqJjH48gf4D4ggF4TdDXJoGY9jce8cn/K8zpeZ4TeT5GUB4zjAtL/bG5p4yQLgEqvibRFbSV4WF9jGCU4jAOs4QivJy+IGyxjDR+ROvnCXIg+FyUjAaPBl2lNMIiHd+TRi0T5KjFQbdZA9LPXkDRziHp/V4awG0gx+Ams4xhU2fxuugyzgMQgKrusA/Y7zhPkQPwRN1FrWp/cc+p1BN55WhFO1zgChdSHDIX6N1MmPuocytEOyg7MIyErwRZKXxQxamP3HK25jIwn/yRx2MRUBeMc5br8HAIJvOCo2x8ekAAAAAElFTkSuQmCC);}'+
         '#brille.active { cursor: pointer; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAABJ0AAASdAHeZh94AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEHSURBVHjanNO/K8VhFMfx1719SwwmMlAsFsNdKOUPYNAdlOI/MN6BSTEoJXexkMxWZfAXWAx+jAb+ACl9B8UdpGs59O12v5fHWc6Pz3nePefpPJW8XoMhbGPC3+0ZTTxkATjFgnSbxWqG/QAc4igBUMcedjOMR3ETrwmQ+4AMV/EWxdHEUQbDt6qFYiUR8tNfTTi0hRYGOoUyyAbmCnkDO7jCR2dzVgJphh/BIg5whuVuzWWQGdzEQsFFGaDXOLeYjvg6dqLUsh7aXeifv7148SbtLnovQLsI6Y/4KXFPvre7L0MeyRqOEyDz4d8reb02iXNM/eMX51jK8IgVrGMsAfCCE1x+DQDslCyF2ZAs+QAAAABJRU5ErkJggg==);)}'+
         '#brille:hover { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAACXBIWXMAABJ0AAASdAHeZh94AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEHSURBVHjanNO/K8VhFMfx1719SwwmMlAsFsNdKOUPYNAdlOI/MN6BSTEoJXexkMxWZfAXWAx+jAb+ACl9B8UdpGs59O12v5fHWc6Pz3nePefpPJW8XoMhbGPC3+0ZTTxkATjFgnSbxWqG/QAc4igBUMcedjOMR3ETrwmQ+4AMV/EWxdHEUQbDt6qFYiUR8tNfTTi0hRYGOoUyyAbmCnkDO7jCR2dzVgJphh/BIg5whuVuzWWQGdzEQsFFGaDXOLeYjvg6dqLUsh7aXeifv7148SbtLnovQLsI6Y/4KXFPvre7L0MeyRqOEyDz4d8reb02iXNM/eMX51jK8IgVrGMsAfCCE1x+DQDslCyF2ZAs+QAAAABJRU5ErkJggg==);)}'+
-        
-        
+
+
         'body { overflow-x:hidden; overflow-y: auto; }'+
         '#page { padding-left: 0px !important; margin: 0 0 0 0 !important; width: 100% !important; position: absolute !important;}'+
         'body.two-sidebars div#head, body.two-sidebars div#page { padding: 0 !important;}'+
@@ -307,7 +305,7 @@
         'div.comment-vote { left: 5px !important;}'+
         '.item-comments { height: calc(100vh - 51px) !important; border-right: 3px solid rgb(42, 46, 49); background: none repeat scroll 0% 0% rgba(23, 23, 24, 0.95); overflow-x:hidden; top: 51px !important; width: 352px !important;}' +//'+high+'
         '.item-container-content { overflow: visible !important; vertical-align: middle; height: calc(100% - 52px) !important; width: calc(100% - 354px) !important;  left: 352px;}'+
-        'div.item-container { padding-bottom: 0px !important; z-index: 2; background: rgba(0, 0, 0, 0.9) !important; position: fixed !important; display: table; height: '+highcontainer+'px !important; width: 100% !important; left: 0px;}'+//'+highcontainer+'px
+        'div.item-container { padding-bottom: 0px !important; z-index: 2; background: rgba(0, 0, 0, 0.9) !important; position: fixed !important; display: table; height: calc(100% - 52px) !important; width: 100% !important; left: 0px;}'+//'+highcontainer+'px
         'div.stream-row { clear: none !important; }'+
         '#main-view { max-width: 101% !important; width: 101% !important; }'+
         '.user-info { margin: 20px 30px 0 0 !important; }'+
@@ -326,7 +324,7 @@
         '#head-menu { left: 200px; position: absolute;}'+
         'div.in-pane { margin-left: -5px}'+
         'div.item-vote span.score {top: -3px}'+
-        
+
         '#filter-menu { left: 318px !important;}'+
         '#footer-links {line-height: 1.6 !important; text-align: center !important; top: 7px; left: auto !important; right: '+rightSpacingForFooterLinks+'px !important; height: 20px; width: 129px !important; bottom: 0px !important; margin: 0 !important}'+
         '#footer-links a { color: rgb(238, 77, 46);}'+
@@ -335,15 +333,15 @@
         '.item-image-wrapper { margin: 0px auto;}'+//max-width: calc(100% - 600px); '+widthitemimage+'px
         '::-webkit-scrollbar { width: 10px;} ::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); -webkit-border-radius: 7px; border-radius: 7px;}'+ 
         '::-webkit-scrollbar-thumb { border-radius: 7px; -webkit-border-radius: 7px; background: #949494; -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); }'+
-        
+
         '.ssb_down {display:none;background:#000;bottom:0;cursor:pointer;position:absolute;right:0;}'+
         '.ssb_sb {border-radius: 7px; -webkit-border-radius: 7px; background: rgb(102, 102, 102); -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5);cursor:pointer;position:absolute;right:0;}'+
         '.ssb_sb_down {}'+
         '.ssb_sb_over {background: #777;}'+
         '.ssb_st {background: #2A2E31; height:100%; -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);cursor:pointer;position:absolute;right:0;top:0;}'+
         '.ssb_up {display:none;cursor:pointer;position:absolute;right:0;top:0;}';
-    
-    
+
+
     // CSS Style hinzufügen
     var node = document.createElement("style");
     node.type = "text/css";
@@ -354,18 +352,18 @@
     } else {
         document.documentElement.appendChild(node);
     }
-    
-    
+
+
     // INDEXEDDB
     window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
     window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
     window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;	
-    
+
     if (!window.indexedDB) {
         window.alert("Dein Brauser unterstützt keine Version von IndexedDB. Das 'bereits angesehen' Feature wird dir nicht zur Verfügung stehen. Das pr0gramm mag dich trotzdem.");
     }
-    
-    
+
+
     function saveid() {
         //console.log('saveid');
         if ($('.item-image').length && window.location.pathname.match('/([0-9]{2,7})')) {
@@ -402,7 +400,7 @@
             };
         }
     }
-    
+
     function show_seenids() {
         //console.log('show_seenids');
         if ($('#stream').length) {
@@ -427,9 +425,10 @@
                 var range = IDBKeyRange.bound(last.slice(5), first.slice(5));
                 store.openCursor(range, 'prevunique').onsuccess = function(event) {
                     var cursor = event.target.result;
-                    var value = parseInt(cursor.value.uploadid);
+                    var value;
                     if (cursor) {
-                        
+
+                        value = parseInt(cursor.value.uploadid);
                         if ($('#item-' + value).children('div.seen').length == 0) {
                             $('#item-' + value).append('<div class="seen" style="border-bottom: 1px solid  rgba(255, 72, 0, 0.84); height: 17px; background: none repeat scroll 0% 0% rgba(22, 22, 24, 0.7); position: relative; width: 128px; top: -17px;"><img style="opacity: 0.7; margin:auto; width:13px; padding-top: 1px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAACXBIWXMAABJ0AAASdAHeZh94AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAADRSURBVHjajNI9TgJRFMXx3+AgxMpIjI1hD5TExC1AZ0dhS2FtIpXaU7EBKiiMrsDKxIqCBZgYNkDDDAV+NI9kMoFhTndvzj/33PdutEoT6KOHI/v1izc8x7jDEAukBdAxnlCLVmnyFRqXDusDFzGWqCmnJaqVkDUuMHbQzET8q+QMJ2hl6ke84jRryk84xwy3qOMBV5gXQd+4wSTUbXzm8+7aZYoN1ruALRThJ9d/2fMomy10FsAyqqMRY4xB+LjkwEVcYxSF27tHt8Skdwz+BwAIXSigFHjUGwAAAABJRU5ErkJggg=="></div>');
                         }
@@ -455,7 +454,7 @@
             };
         }
     }
-    
+
     // bereits gesehen Markierung laden
     function add_seen_marker() {
         if (!$('.seen_marker').length && $('#brille').hasClass('active')) {
@@ -465,12 +464,12 @@
             }
         }
     }
-    
+
     // Observer für Seitenänderung
     observeDOM = (function(){
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
             eventListenerSupported = window.addEventListener;
-        
+
         return function(obj, callback, subtree){
             if( MutationObserver ){
                 var obs = new MutationObserver(function(mutations, observer){
@@ -487,9 +486,9 @@
                 obj.addEventListener('DOMNodeInserted', callback, false);
                 obj.addEventListener('DOMNodeRemoved', callback, false);
             }
-                }
+        }
     })();
-    
+
     observeDOM(
         document.getElementById('page'),
         function(elements){
@@ -515,15 +514,15 @@
                     case "item-comments":
                         //console.log('Comments geladen');
                         commentschange();
-                        break;
+                        break;   
                 }
             });
-            
-            
+
+
         },
         true
     );
-    
+
     function commentschange() {
         // Kommentare einblenden
         /*if ($('.comments').length) {
@@ -534,7 +533,7 @@
 				    //$('.comment-form').fadeIn(300);
 				    //$('.comments').fadeIn(300);
 			}*/
-        
+
         // Custom Scrollbar laden in den Comments, nicht bei Chrome
         if (!is_chrome && $('.item-comments').length && !$('.item-comments').hasClass('scroll')) {
             if ($('.comments').height() > ($('.item-comments').height()-130)) {
@@ -547,7 +546,7 @@
                 }
             }
         }
-        
+
         // Kommentaransicht ändern
         if ($('.item-comments').length) {
             // nur einmalig einbinden
@@ -558,7 +557,7 @@
                     $("div.item-comments").each(function(index) {
                         $(this).toggleClass("wide");
                     });
-                    
+
                     //Scrollbalken anpassen
                     if (!is_chrome) {
                         if (!$('.item-comments').hasClass('scroll')) {
@@ -582,7 +581,7 @@
                 });
             }
         }
-        
+
         // Kommentarsortierung laden
         if (!$('#com-new').hasClass('active') && !$('#com-top').hasClass('active')) {
             if (localStorage.getItem("comorder") != null) {
@@ -591,7 +590,7 @@
                 $('#com-top').addClass('active');
             }
         }
-        
+
         // Click Events für Sortierung
         if ($('#com-new').length) {
             $('#com-new').click(function() {
@@ -610,9 +609,9 @@
                 window.location.reload(true);
                 return false;
             });
-            
+
         }
-        
+
         // Zu Kommentar springen
         var commentid = window.location.pathname.split(':comment')[1];
         if (commentid) {
@@ -620,20 +619,20 @@
             $('.item-comments').scrollTop(top);
         }
     }
-    
+
     function imagechange() {
-        
+
         $('.item-image-wrapper').click(function(e) {
             if(e.target != this) return;
             $('.item-image:visible').click();
         });
-        
+
         // bereits gesehen Markierung
         if ($('#brille').hasClass('active')) {
             saveid();
             add_seen_marker();
         }
-        
+
         // + bei resized Bildern hinzufügen
         if (!$('.item-fullsize-link').length) {
             var imgu = document.getElementsByClassName('item-image')[0];
@@ -642,16 +641,16 @@
                 $('.item-image-wrapper').append('<a class="item-fullsize-link" target="_blank" href="'+link+'" style="">+</a>');
             }
         }
-        
+
         // Scrollbar in Bildansicht ausblenden
         var stil = document.getElementsByTagName('html')[0];
         if (stil.style.overflow != 'hidden') {
             stil.style.overflow = 'hidden';
         }
-        
+
         // Bild-Zoom initieren
-        ratioCalculation();
-        
+        initiateZoom();
+
         // zum passenden Thumb scrollen
         var itemId = document.URL;
         var itemname = '#item-' + itemId.substring(itemId.length - 6, itemId.length);
@@ -665,7 +664,7 @@
             }
         }
     }
-    
+
     function streamchange() {
         if (!$('.item-container').length) {
             var stil = document.getElementsByTagName('html')[0];
@@ -674,13 +673,13 @@
                 stil.style.overflowY = 'auto';	
             }
         }
-        
+
         // Bereits gesehen Markierungen in den thumbs
         if ($('#brille').hasClass('active')) {
             //console.log('streamchange_show_seenids');
             show_seenids();
         }
-        
+
         // SlideIn Effekt für Comments
         if ($('.stream-row').length) {
             $('.stream-row a').click(function() {
@@ -690,16 +689,16 @@
                 }
             });
         }
-        
+
         // Seite zentrieren links/rechts
         if ($('div#stream').css('margin-left') == '0px') {
             var mainwidth = $('#main-view' ).width();
             var margin = (mainwidth-(Math.floor(mainwidth/132)*132))/2-15 + 'px';
             $('div#stream').css('margin-left', margin);
         }
-        
+
     }
-    
+
     function headerchange() {
         if (!$('.item-container').length) {
             var stil = document.getElementsByTagName('html')[0];
@@ -708,11 +707,11 @@
                 stil.style.overflowY = 'auto';	
             }
         }
-        
+
         // Bereits gesehen Button, nur einmal einbinden
         var event = $._data( $('#brille')[0], 'events' );
         if ($('#brille').length && !event) {
-            
+
             $('#brille').click(function() {
                 $('#brille').toggleClass("active");
                 var value = $("#brille").hasClass("active")? 'on' : 'off';
@@ -729,57 +728,62 @@
                 return false;
             });
         }
-        
+
         // Random Button aktualisieren
         if (document.getElementById('random').getAttribute('href') == '') prepareButton();
     }
-    
+
+    // initiiert den Zoom für die Bilder
+    // Wird einmalig bei jedem neuen Bild aufgerufen
+    function initiateZoom() {
+        content = document.getElementsByClassName("item-image")[0];
+        if($('.item-image').attr('type')=="video/webm"){} else {
+            $('.item-image').hide();
+            $('.item-info').hide();
+        }
+        ratioCalculation();
+    }
+
+
     // side ratio calculation
     function ratioCalculation() {
         if ($("div.item-container").length) {
-            
-            var itemNaturalHeight,
-                itemNaturalWidth,
-                content = document.getElementsByClassName("item-image")[0];
-            
-            if($('.item-image').attr('type')=="video/webm"){
-                content.addEventListener( "loadedmetadata", function (e) {                        
-                    itemNaturalHeight = content.videoHeight;
-                    itemNaturalWidth = content.videoWidth; 
-                    zooming(itemNaturalHeight,itemNaturalWidth,content);
-                });
-            } else { 
-                $('.item-image').hide();
-                $('.item-info').hide();
-                content.addEventListener( "load", function (e) {
-                    itemNaturalHeight = content.naturalHeight;
-                    itemNaturalWidth = content.naturalWidth;
-                    zooming(itemNaturalHeight,itemNaturalWidth,content);
-                });
-            }
+            zooming(itemNaturalHeight,itemNaturalWidth,content);
         }
     }
-    
+
     function getPageResolution(){
-        var high = $(window).height()-51;
-        var highitemimage = $(window).height()-150;
-        var highcontainer = $(window).height()-52;
-        var widthitemimage = $(window).width()-354;
+        highitemimage = $(window).height()-150;
+        widthitemimage = $(window).width()-354;
+
+        if($('.item-image').attr('type')=="video/webm"){
+            content.addEventListener( "loadedmetadata", function (e) {                        
+                itemNaturalHeight = content.videoHeight;
+                itemNaturalWidth = content.videoWidth; 
+                zooming(itemNaturalHeight,itemNaturalWidth,content);
+            });
+        } else { 
+            content.addEventListener( "load", function (e) {
+                itemNaturalHeight = content.naturalHeight;
+                itemNaturalWidth = content.naturalWidth;
+                zooming(itemNaturalHeight,itemNaturalWidth,content);
+            });
+        }
     }
-    
+
     function zooming(itemNaturalHeight,itemNaturalWidth,content){
-        //console.log(itemNaturalHeight,"+",itemNaturalWidth);
+        console.log(itemNaturalHeight,"+",itemNaturalWidth);
         getPageResolution();
-        
+
         //if picture height is limit when zoomed
         if (widthitemimage/highitemimage>itemNaturalWidth/itemNaturalHeight){
-            //console.log("Begrenzung durch Höhe "+highitemimage);
+            console.log("Begrenzung durch Höhe "+highitemimage);
             content.style.height=highitemimage+'px';
             $('.item-image').css('width', 'auto');
-            
+
             //if picture width is limit when zoomed
         }else{
-            //console.log("Begrenzung durch Breite "+widthitemimage);
+            console.log("Begrenzung durch Breite "+widthitemimage);
             content.style.width=widthitemimage+'px';
             $('.item-image').css('height', 'auto');
         }
@@ -790,14 +794,14 @@
         $('.item-image').show();
         $('.item-info').show();
     }
-    
+
     // Space Vergrößerung und links/rechts Bildwechsel
     document.addEventListener("keydown", keydown, false);
-    
+
     var clickevent;
     function keydown(event) {
         if (event.keyCode == '32') {
-            
+
             // falls textarea aktiv
             var el = document.activeElement;
             if (el && (el.tagName.toLowerCase() == 'input' && el.type == 'text' || el.tagName.toLowerCase() == 'textarea')) {
@@ -805,8 +809,8 @@
             }
         }
     }
-    
-    
+
+
     // Image Scroll
     // Firefox
     document.addEventListener("DOMMouseScroll", handleWheel, false);
@@ -816,19 +820,19 @@
     if(!document.addEventListener) {
         document.attachEvent("onmousewheel", handleWheel);
     }
-    
+
     function handleWheel(event) {
-        
+
         if ($("div.item-container").length) {
             var coms = document.getElementsByClassName("item-comments");
             if (isHover(coms[0])) {
                 return;
             }
-            
+
             event.preventDefault();
             event.stopPropagation();
             event.returnValue=false;
-            
+
             var wheelWait = 200;
             var time = (new Date()).getTime();
             var msec = time - wheelLast;
@@ -836,7 +840,7 @@
             if (msec < wheelWait) {
                 return;
             }
-            
+
             var delta = 0;
             if (!event) 
                 event = window.event;
@@ -845,20 +849,20 @@
             } else if (event.detail) { 
                 delta = -event.detail/3;
             }
-                
-                if(delta<0){
-                    $('.stream-next').click();
-                }else{
-                    $('.stream-prev').click();
-                }
+
+            if(delta<0){
+                $('.stream-next').click();
+            }else{
+                $('.stream-prev').click();
+            }
         }
     }
-    
+
     function isHover(e) {
         if (!e) return false;
         return (e.parentElement.querySelector(':hover') === e);
     }
-    
+
     // Code für den Random Button     
     function prepareButton() {
         if ($('.stream-row a:first').length) {
@@ -872,8 +876,8 @@
         dingsda = document.getElementById('random');
         dingsda.setAttribute('href', 'http://pr0gramm.com/new/' + imageId);
     }
-    
-    
+
+
     // Custom Scrollbar
     var ssb = {
         aConts  : [],
@@ -883,44 +887,44 @@
         sc : 0,
         sp : 0,
         to : 0,
-        
+
         // constructor
         scrollbar : function (cont_id) {
             if (cont_id == 'item-comments') { var cont = document.getElementsByClassName(cont_id)[0]; }
             else if (cont_id == 'page') { var cont = document.getElementById(cont_id);}
-                else if (cont_id == 'html') { var cont = document.getElementsByTagName('html')[0];}
-                
-                // perform initialization
-                if (! ssb.init()) return false;
-            
+            else if (cont_id == 'html') { var cont = document.getElementsByTagName('html')[0];}
+
+            // perform initialization
+            if (! ssb.init()) return false;
+
             var cont_clone = cont.cloneNode(false);
             cont_clone.style.overflow = "hidden";
             cont.parentNode.appendChild(cont_clone);
             cont_clone.appendChild(cont);
-            
+
             cont.className = cont.className.replace("fadeInLeft", "");
             cont.className += ' second';
             // adding new container into array
             ssb.aConts[ssb.N++] = cont;
-            
+
             cont.sg = false;
-            
+
             //creating scrollbar child elements
             cont.st = this.create_div('ssb_st', cont, cont_clone);
             cont.sb = this.create_div('ssb_sb', cont, cont_clone);
             cont.su = this.create_div('ssb_up', cont, cont_clone);
             cont.sd = this.create_div('ssb_down', cont, cont_clone);
-            
+
             // on mouse down processing
             cont.sb.onmousedown = function (e) {
                 if (! this.cont.sg) {
                     if (! e) e = window.event;
-                    
+
                     ssb.asd = this.cont;
                     this.cont.yZ = e.screenY;
                     this.cont.sZ = cont.scrollTop;
                     this.cont.sg = true;
-                    
+
                     // new class name
                     this.className = 'ssb_sb ssb_sb_down';
                 }
@@ -930,37 +934,37 @@
             cont.st.onmousedown = function (e) {
                 if (! e) e = window.event;
                 ssb.asd = this.cont;
-                
+
                 ssb.mouseY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
                 for (var o = this.cont, y = 0; o != null; o = o.offsetParent) y += o.offsetTop;
                 this.cont.scrollTop = (ssb.mouseY - y - (this.cont.ratio * this.cont.offsetHeight / 2) - this.cont.sw) / this.cont.ratio;
                 this.cont.sb.onmousedown(e);
             }
-            
+
             // onmousedown events
             cont.su.onmousedown = cont.su.ondblclick = function (e) { ssb.mousedown(this, -1); return false; }
             cont.sd.onmousedown = cont.sd.ondblclick = function (e) { ssb.mousedown(this,  1); return false; }
-            
+
             //onmouseout events
             cont.su.onmouseout = cont.su.onmouseup = ssb.clear;
             cont.sd.onmouseout = cont.sd.onmouseup = ssb.clear;
-            
+
             // on mouse over - apply custom class name: ssb_sb_over
             cont.sb.onmouseover = function (e) {
                 if (! this.cont.sg) this.className = 'ssb_sb ssb_sb_over';
                 return false;
             }
-            
+
             // on mouse out - revert back our usual class name 'ssb_sb'
             cont.sb.onmouseout  = function (e) {
                 if (! this.cont.sg) this.className = 'ssb_sb';
                 return false;
             }
-            
+
             // onscroll - change positions of scroll element
             cont.ssb_onscroll = function () {
                 //var coms = document.getElementsByClassName("comments")[0];
-                
+
                 //if (isHover(coms[0])) {
                 if (cont_id == 'item-comments') {
                     this.ratio = this.offsetHeight / ($('.comments').outerHeight(true) + 131);//187+33
@@ -972,40 +976,40 @@
                 this.sb.style.top = Math.floor(this.scrollTop * this.ratio) + 'px';
                 //}
             }
-            
+
             // scrollbar width
             cont.sw = 11;
-            
+
             // start scrolling
             cont.ssb_onscroll();
             ssb.refresh();
-            
+
             // binding own onscroll event
             cont.onscroll = cont.ssb_onscroll;
             var conte = document.getElementById('page');
-            
+
             //elem.onscroll = cont.ssb_onscroll;
             return cont;
         },
-        
+
         // initialization
         init : function () {
             if (window.oper || (! window.addEventListener && ! window.attachEvent)) { return false; }
-            
+
             // temp inner function for event registration
             function addEvent (o, e, f) {
                 if (window.addEventListener) { o.addEventListener(e, f, false); ssb.w3c = true; return true; }
                 if (window.attachEvent) return o.attachEvent('on' + e, f);
                 return false;
             }
-            
+
             // binding events
             addEvent(window.document, 'mousemove', ssb.onmousemove);
             addEvent(window.document, 'mouseup', ssb.onmouseup);
             addEvent(window, 'resize', ssb.refresh);
             return true;
         },
-        
+
         // create and append div finc
         create_div : function(c, cont, cont_clone) {
             var o = document.createElement('div');
@@ -1040,8 +1044,8 @@
                 ssb.sp = 32;
             }
         },
-        
-        
+
+
         // scroll on mouse down
         mousedown : function (o, s) {
             if (ssb.sc == 0) {
@@ -1065,15 +1069,23 @@
             if (! e) e = window.event;
             var tg = (e.target) ? e.target : e.srcElement;
             if (ssb.asd && document.releaseCapture) ssb.asd.releaseCapture();
-            
+
             // new class name
             if (ssb.asd) ssb.asd.sb.className = (tg.className.indexOf('scrollbar') > 0) ? 'ssb_sb ssb_sb_over' : 'ssb_sb';
             document.onselectstart = '';
             ssb.clear();
             ssb.asd.sg = false;
         }
-        
+
     }
-    
-    
-    })();
+
+    //Listener falls Browsergröße verändert wird
+    var resizeTimeout = false;
+    window.addEventListener("resize", function(){
+        if(resizeTimeout !== false)
+            clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(ratioCalculation, 100);
+    });
+
+
+})();
