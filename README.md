@@ -1,7 +1,7 @@
 Pr0_2.0
 =======
 
-Dieses Skript ist für alle User gedacht die Pr0 auf einem Bildschirm mit etwas mehr als 600x800 Pixeln nutzen.
+Dieses Skript ist für alle User gedacht die Pr0 auf einem Bildschirm mit etwas mehr als 800x600 Pixeln nutzen.
 Richtige Vorteile erhaltet ihr allerdings erst ab einer Bildschirmbreite von 1400 Pixeln!
 
 Vorteile durch das Skript:
